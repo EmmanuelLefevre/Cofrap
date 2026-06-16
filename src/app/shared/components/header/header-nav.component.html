@@ -1,0 +1,83 @@
+<header class="header">
+  <div class="header__container">
+    <a
+      routerLink="/"
+      (click)="closeMenu()"
+      [attr.aria-label]="'UI.BUTTONS.LOGO.ARIA' | translate"
+      class="header__logo">
+      <span>CO</span>FRAP
+    </a>
+
+    <button
+      type="button"
+      (click)="toggleMenu()"
+      (keydown.enter)="toggleMenu()"
+      [class.is-active]="isMenuOpen()"
+      [attr.aria-expanded]="isMenuOpen()"
+      aria-controls="main-nav"
+      [attr.aria-label]="
+        isMenuOpen()
+          ? ('UI.BUTTONS.MOBILE.MENU.ARIA.CLOSE' | translate)
+          : ('UI.BUTTONS.MOBILE.MENU.ARIA.OPEN' | translate)
+      "
+      class="header__burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav
+      id="main-nav"
+      [class.is-open]="isMenuOpen()"
+      class="header__nav">
+      <ul class="header__list">
+        @for (link of navLinks; track link.path) {
+          @if (!link.requiresAuth || authService.isAuthenticated()) {
+            <li class="header__item">
+              <a
+                [routerLink]="link.path"
+                routerLinkActive="active"
+                (click)="closeMenu()"
+                (keydown.escape)="closeMenu()"
+                class="header__link">
+                {{ link.labelKey | translate }}
+              </a>
+            </li>
+          }
+        }
+      </ul>
+
+      <div class="header__nav-actions">
+        <language-toggle />
+        <main-button
+          variant="primary"
+          [label]="(authService.isAuthenticated() ? 'UI.BUTTONS.LOGOUT.LABEL' : 'UI.BUTTONS.LOGIN.LABEL') | translate"
+          [ariaLabel]="(authService.isAuthenticated() ? 'UI.BUTTONS.LOGOUT.ARIA' : 'UI.BUTTONS.LOGIN.ARIA') | translate"
+          (clicked)="onAuthActionClick()"
+          class="header__login-btn" />
+      </div>
+    </nav>
+
+    <div class="header__actions">
+      <language-toggle />
+      <main-button
+        variant="primary"
+        [label]="(authService.isAuthenticated() ? 'UI.BUTTONS.LOGOUT.LABEL' : 'UI.BUTTONS.LOGIN.LABEL') | translate"
+        [ariaLabel]="(authService.isAuthenticated() ? 'UI.BUTTONS.LOGOUT.ARIA' : 'UI.BUTTONS.LOGIN.ARIA') | translate"
+        (clicked)="onAuthActionClick()"
+        class="header__login-btn" />
+    </div>
+  </div>
+</header>
+
+<button
+  (click)="closeMenu()"
+  [class.is-visible]="isMenuOpen()"
+  (keydown.escape)="closeMenu()"
+  (keydown.enter)="closeMenu()"
+  (keydown.space)="$event.preventDefault(); closeMenu()"
+  [tabindex]="isMenuOpen() ? 0 : -1"
+  [attr.aria-label]="'UI.BUTTONS.MOBILE.MENU.ARIA.CLOSE' | translate"
+  type="button"
+  class="header__overlay">
+</button>

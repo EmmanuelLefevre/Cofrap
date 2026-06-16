@@ -1,0 +1,84 @@
+/// <reference types="vitest" />
+import { defineConfig } from 'vitest/config';
+import angular from '@analogjs/vite-plugin-angular';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+const DIRNAME = dirname(fileURLToPath(import.meta.url));
+
+const LOCAL_COVERAGE = 0;
+const PIPELINE_COVERAGE = 80;
+const COVERAGE_THRESHOLD = process.env.CI ? PIPELINE_COVERAGE : LOCAL_COVERAGE;
+
+export default defineConfig({
+  plugins: [
+    angular(),
+    tsconfigPaths({
+      projects: [resolve(DIRNAME, 'tsconfig.json')]
+    })
+  ],
+  optimizeDeps: {
+    include: [
+      '@oxc-project/runtime/helpers/defineProperty',
+      '@oxc-project/runtime/helpers/asyncToGenerator',
+      '@oxc-project/runtime/helpers/objectSpread2'
+    ]
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: [DIRNAME],
+        additionalData: '@use "src/styles/abstracts/_index.scss" as *;'
+      },
+    },
+  },
+  define: {
+    'process.env.NG_APP_SUPABASE_URL': JSON.stringify('https://mock-supabase-url.com'),
+    'process.env.NG_APP_SUPABASE_ANON_KEY': JSON.stringify('mock-anon-key')
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: [
+      resolve(DIRNAME, 'src/test-setup.ts')
+    ],
+    reporters: ['default'],
+    testTimeout: 20000,
+    hookTimeout: 20000,
+    coverage: {
+      provider: 'v8',
+      enabled: true,
+      reporter: ['text', 'lcov', 'html'],
+      reportsDirectory: './coverage',
+      thresholds: {
+        statements: COVERAGE_THRESHOLD,
+        branches: COVERAGE_THRESHOLD,
+        functions: COVERAGE_THRESHOLD,
+        lines: COVERAGE_THRESHOLD,
+      },
+      exclude: [
+        '**/*.constant.ts',
+        '**/index.ts',
+        '.angular/**',
+        'coverage/**',
+        'dist/**',
+        'eslint.config.js',
+        'src/_environments/environment.ts',
+        'src/_environments/environment.prod.ts',
+        'src/app/app.config.ts',
+        'src/main.ts',
+      ],
+      clean: true
+    },
+    onConsoleLog(log: string): false | void {
+      const IGNORED_MESSAGES = [
+        'NG02956'
+      ];
+
+      if (IGNORED_MESSAGES.some(msg => log.includes(msg))) {
+        return false;
+      }
+    }
+  }
+});

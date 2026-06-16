@@ -1,0 +1,56 @@
+import { ApplicationConfig, provideAppInitializer, inject } from '@angular/core';
+import { HttpClient, HttpInterceptorFn, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideTranslateService, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { firstValueFrom, Observable } from 'rxjs';
+import { DotLottie } from '@lottiefiles/dotlottie-web';
+
+import { ROUTES } from '@app/app.routes';
+
+import { authInterceptor } from '@core/interceptors/auth/auth.interceptor';
+import { errorInterceptor } from '@core/interceptors/error/error.interceptor';
+
+export class CustomTranslateLoader implements TranslateLoader {
+  private readonly http = inject(HttpClient);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getTranslation(lang: string): Observable<any> {
+    return this.http.get(`./assets/i18n/${lang}.json`);
+  }
+}
+
+const HTTP_INTERCEPTORS: HttpInterceptorFn[] = [
+  authInterceptor,
+  errorInterceptor
+];
+
+export const APP_CONFIG: ApplicationConfig = {
+  providers: [
+    provideRouter(ROUTES),
+    provideClientHydration(),
+    provideHttpClient(
+      withInterceptors(HTTP_INTERCEPTORS)
+    ),
+    provideTranslateService({
+      defaultLanguage: 'fr',
+      loader: {
+        provide: TranslateLoader,
+        useClass: CustomTranslateLoader
+      },
+    }),
+    provideAppInitializer(async() => {
+      DotLottie.setWasmUrl('/assets/wasm/dotlottie-player.wasm');
+
+      const TRANSLATE = inject(TranslateService);
+
+      const BROWSER_LANG = TRANSLATE.getBrowserLang();
+      const LANG_TO_USE = BROWSER_LANG?.match(/en|fr/) ? BROWSER_LANG : 'fr';
+      TRANSLATE.setFallbackLang('fr');
+
+      await Promise.all([
+        firstValueFrom(TRANSLATE.use(LANG_TO_USE))
+      ]);
+    })
+  ]
+};

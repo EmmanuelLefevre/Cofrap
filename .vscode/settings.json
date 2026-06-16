@@ -1,0 +1,88 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": false,
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.json": "jsonc",
+    "tsconfig.json": "jsonc",
+    "tsconfig.app.json": "jsonc"
+  },
+  "files.insertFinalNewline": true,
+  "i18n-ally.displayLanguage": "fr",
+  "i18n-ally.extract.autoDetect": false,
+  "i18n-ally.keepFulfilled": false,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": "src/assets/i18n",
+  "i18n-ally.readonly": true,
+  "i18n-ally.sourceLanguage": "fr"
+}
+
+/* ========================================================================
+  VS CODE WORKSPACE SETTINGS (settings.json)
+
+  These settings are specific to the Visual Studio Code editor (IDE)
+  and do NOT affect the compilation, build, or deployment of the project.
+
+  Their primary purpose is to enhance the development experience (DX)
+  within this specific IDE instance, particularly for translations.
+  =========================================================================
+
+  --- EDITOR SETTINGS ----------------------------------------------------
+
+   * editor.tabSize
+    Sets the number of spaces a tab is equal to (Standard is 2 for Web/Angular).
+
+   * editor.insertSpaces
+    Ensures that pressing 'Tab' inserts actual tab characters instead of spaces.
+
+   * editor.formatOnSave
+    Automatically formats the current file whenever it is saved.
+
+  --- FILE ASSOCIATIONS --------------------------------------------------
+
+  * files.associations
+    Defines language associations for specific file names or extensions.
+
+  * "*.json": "jsonc"
+    Treats all generic JSON files as JSON with Comments (JSONC).
+    Allows adding documentation comments (like this block) without syntax errors.
+
+  * "tsconfig.json" / "tsconfig.app.json": "jsonc"
+    Explicitly forces TypeScript configuration files to be treated as JSONC.
+
+  --- FILE FORMATTING ----------------------------------------------------
+
+   * files.insertFinalNewline
+    Ensures every file ends with a single blank line, matching POSIX standards
+    and preventing Git end-of-file warnings.
+
+  --- I18N ALLY CONFIGURATION --------------------------------------------
+
+  Settings for the "i18n Ally" extension, used to manage translation files.
+
+  * i18n-ally.displayLanguage: "fr"
+    Sets the language displayed in the IDE annotations (tooltips).
+    Allows the developer to see the French translation directly inline in the code.
+
+   * i18n-ally.extract.autoDetect: false
+    Disables automatic detection of hardcoded strings in the source code.
+    Prevents the extension from being too intrusive during coding.
+
+   * i18n-ally.keepFulfilled: false
+    Determines whether to keep already fulfilled translation keys during cleanup.
+
+   * i18n-ally.keystyle: "nested"
+    Specifies the structure of the translation JSON files.
+    "nested" means using objects (e.g., { "HOME": { "TITLE": "..." } }).
+
+   * i18n-ally.localesPaths: "src/assets/i18n"
+    Defines the directory path where translation files (fr.json, etc.) are located.
+
+   * i18n-ally.readonly: true
+    Enables read-only mode for the extension's UI.
+    Prevents accidental modification of translation files through the editor interface.
+
+   * i18n-ally.sourceLanguage: "fr"
+    Sets French as the source of truth for translations.
+    Used as a reference to identify missing keys in other language files.
+*/

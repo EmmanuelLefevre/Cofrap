@@ -1,0 +1,41 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": ["vite/client"],
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}
+
+/* ========================================================================
+  TYPESCRIPT APPLICATION CONFIGURATION (tsconfig.app.json)
+
+  This file extends the core configuration (`tsconfig.json`) and defines
+  the paths and compilation settings specific to the application source files (excluding tests).
+  =========================================================================
+
+  --- INHERITANCE & STRUCTURE ---------------------------------------------
+
+  * extends: "./tsconfig.json"
+    Inherits all core compilation rules and strict typing options from the base file.
+
+  * rootDir: "./src"
+    Defines the root directory for source code resolution.
+
+  * outDir: "./out-tsc/app"
+    Output directory where compiled JavaScript code will be placed.
+
+  * include: ["src/** /*.ts"]
+    Includes all TypeScript files within the 'src' folder for compilation.
+
+  * exclude: ["src/** /*.spec.ts"]
+    Explicitly excludes unit test files (`.spec.ts`) from the main application compilation.
+
+  * compilerOptions
+
+  * types: []
+    Disables automatic inclusion of all types from `node_modules/@types`.
+    Only explicitly referenced types will be included (if any).
+*/

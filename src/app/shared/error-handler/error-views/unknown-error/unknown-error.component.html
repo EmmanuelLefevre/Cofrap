@@ -1,0 +1,26 @@
+<section
+  class="unknown-error"
+  [class.is-ready]="isReady">
+  <div class="unknown-error__content">
+    <div class="unknown-error__animation-wrapper">
+      <span class="sr-only">
+        {{ 'PAGES.ERROR.UNKNOWN.IMG.ALT' | translate }}
+      </span>
+
+      <canvas
+        #lottieCanvas
+        aria-hidden="true"
+        tabindex="-1"
+        class="unknown-error__lottie">
+      </canvas>
+    </div>
+
+    <h4 class="unknown-error__title">
+      {{ 'PAGES.ERROR.UNKNOWN.TITLE' | translate }}
+    </h4>
+
+    <h5 class="unknown-error__subtitle">
+      {{ 'PAGES.ERROR.UNKNOWN.SUBTITLE' | translate }}
+    </h5>
+  </div>
+</section>

@@ -1,0 +1,289 @@
+{
+  "META": {
+    "DEFAULT": {
+      "APP_NAME": "Cofrap",
+      "TITLE": "Cofrap",
+      "DESCRIPTION": "Solution automatisée de création de comptes et d'authentification forte pour la plateforme Cloud de la COFRAP. Génération de mots de passe complexes et double authentification obligatoire.",
+      "KEYWORDS": "COFRAP, Cloud, Serverless, OpenFaaS, Kubernetes, Sécurité, Authentification Forte, 2FA, TOTP, QR Code, Mot de passe sécurisé"
+    },
+    "PAGES": {
+      "HOME": {
+        "TITLE": "Accueil",
+        "DESCRIPTION": "Bienvenue sur Cofrap"
+      },
+      "CONTACT": {
+        "TITLE": "Contact",
+        "DESCRIPTION": "Page de contact du site"
+      },
+      "LOGIN": {
+        "TITLE": "Connexion",
+        "DESCRIPTION": "Page de connexion du site"
+      },
+      "PRIVATE": {
+        "ACCOUNT": {
+          "TITLE": "Compte",
+          "DESCRIPTION": "Page de votre compte."
+        }
+      },
+      "ERROR": {
+        "401": {
+          "TITLE": "Non Autorisé",
+          "DESCRIPTION": "Vous n'avez pas la permission d'accéder à cette page."
+        },
+        "403": {
+          "TITLE": "Interdit",
+          "DESCRIPTION": "Vous n'avez pas les permissions nécessaires pour accéder à cette ressource."
+        },
+        "404": {
+          "TITLE": "Page Introuvable",
+          "DESCRIPTION": "La page que vous recherchez n'existe pas ou a été supprimée."
+        },
+        "408": {
+          "TITLE": "Délai Expiré",
+          "DESCRIPTION": "La connexion a mis trop de temps à répondre."
+        },
+        "500": {
+          "TITLE": "Erreur Serveur",
+          "DESCRIPTION": "Une erreur inattendue s'est produite sur nos serveurs."
+        },
+        "503": {
+          "TITLE": "En Maintenance",
+          "DESCRIPTION": "Site web en maintenance, on revient vite."
+        },
+        "GENERIC": {
+          "TITLE": "Une Erreur Est Survenue",
+          "DESCRIPTION": "Nous avons rencontré un problème lors du traitement de votre demande."
+        },
+        "UNKNOWN": {
+          "TITLE": "Erreur Inconnue",
+          "DESCRIPTION": "Une erreur inconnue s'est produite. Veuillez réessayer plus tard."
+        }
+      }
+    }
+  },
+  "LAYOUT": {
+    "HEADER": {
+      "NAV": {
+        "WELCOME": "Bienvenue",
+        "PRIVATE": {
+          "ACCOUNT": "Compte"
+        }
+      }
+    },
+    "FOOTER": {
+      "LEGAL": {
+        "COPYRIGHT": "©{{year}}",
+        "RIGHTS_RESERVED": "Tous droits réservés."
+      },
+      "CREDITS": {
+        "DEVELOPED_BY_PREFIX": "Site développé par",
+        "DEVELOPER_NAME": "Emmanuel Lefevre ",
+        "HOSTED_BY_PREFIX": "et hébergé sur",
+        "HOST_PROVIDER_NAME": "Planet Hoster "
+      },
+      "ADDRESS": {
+        "STREET": "10, Rue de la Paix 75000 Paris",
+        "PHONE": "0 800 123 456"
+      },
+      "SOCIAL_LINKS": {
+        "LINKEDIN": {
+          "TOOLTIP": "Lien LinkedIn",
+          "ARIA": "Lien vers le profil LinkedIn du développeur du site"
+        },
+        "GITHUB": {
+          "TOOLTIP": "Lien GitHub",
+          "ARIA": "Lien vers le profil GitHub du développeur du site"
+        },
+        "PORTFOLIO": {
+          "TOOLTIP": "Portfolio",
+          "ARIA": "Lien vers le portfolio du développeur du site"
+        },
+        "CONTACT": {
+          "TOOLTIP": "Contactez-nous",
+          "ARIA": "Lien vers le formulaire de contact du site"
+        },
+        "HOST": {
+          "TOOLTIP": "Hébergeur",
+          "ARIA": "Lien vers l'hébergeur du site"
+        }
+      }
+    }
+  },
+  "PAGES": {
+    "HOME": {
+      "HERO": {
+        "TITLE": "Sécurisation de notre Accès Cloud !",
+        "DESCRIPTION": " vous présente l'architecture Serverless au service de la protection de son infrastructure. Veuillez générer vos identifiants sécurisés conformes à nos exigences."
+      }
+    },
+    "AUTH": {
+      "LOGIN": {
+        "TITLE": "Ravi de vous revoir !",
+        "SUBTITLE": "Connectez-vous pour accéder à votre espace privé.",
+        "CTA_SWITCH": "Déjà un compte ? Connectez-vous..."
+      },
+      "QR_VIEW": {
+        "QR_TITLE": "Qr Code",
+        "MFA_TITLE": "Configuration 2FA"
+      }
+    },
+    "ERROR": {
+      "TITLE": {
+        "COMMON": "Une erreur est survenue.",
+        "UNKNOWN": "Une erreur inconnue est survenue."
+      },
+      "LABEL": "Erreur",
+      "UNAUTHORIZED": {
+        "TITLE": "Accès Interdit",
+        "MESSAGE": "On a quelques questions avant de te laisser passer. A commencer par : t'es qui ? Ton accréditation n'est pas valable pour cette zone."
+      },
+      "SERVER": {
+        "SUBTITLE": "Oup's nos serveurs sont HS...",
+        "INSTRUCTION": {
+          "MOBILE": "Mettre un coup de masse au développeur avec votre pouce !",
+          "DESKTOP": "Choisir le développeur coupable et lui donner un coup de masse !"
+        },
+        "APOLOGIZES": {
+          "DEV": {
+            "1": "Désolé, c'est ma faute... Je vais régler ça !",
+            "2": "C'est pas moi c'est K8s !",
+            "3": "Contacter le maître de guilde 🤣",
+            "4": "Pas concerné, ma spécialité c'est MIAGE !"
+          }
+        },
+        "IMG": {
+          "ALT": {
+            "BULK": "Masse pour frapper les développeurs",
+            "HAMSTER": "Hamster sortant d'un trou qui se moque de vous"
+          }
+        }
+      },
+      "UNKNOWN": {
+        "TITLE": "Houston, on a un problème !",
+        "SUBTITLE": "Il semblerait que cette page ait fait un saut dans l'espace-temps...",
+        "IMG": {
+          "ALT": "Une soucoupe volante extraterrestre enlevant un campeur endormi dans son sac de couchage"
+        }
+      },
+      "TIMEOUT": {
+        "TITLE": "Perte de signal !",
+        "SUBTITLE": "Même la lumière met du temps à traverser l'univers...",
+        "IMG": {
+          "ALT": "Un sablier en train de tourner sur lui-même"
+        }
+      },
+      "MAINTENANCE": {
+        "TITLE": "Casques obligatoires !",
+        "SUBTITLE": "On laisse sécher le code et on revient vite...",
+        "IMG": {
+          "ALT": "Une équipe technique s'affairant autour d'un écran en maintenance"
+        }
+      },
+      "GENERIC": {
+        "TITLE": "Nos algorithmes sont formels : c'est impossible...",
+        "SUBTITLE": "Bidouillez ce qui clignote pour vous échapper en vitesse !",
+        "SUCCESS": "Erreur colmatée. Tunnel de sortie stable !",
+        "IMG": {
+          "ALT": "Une illustration de paysage désertique dévasté par la sécheresse"
+        },
+        "BUTTON": {
+          "ARIA": "Réparer le système {{id}}"
+        }
+      }
+    }
+  },
+  "UI": {
+    "QR_CARD": {
+      "ALT_TEXT": "QR Code généré"
+    },
+    "SNACKBAR": {
+      "AUTH": {
+        "LOGIN": {
+          "SUCCESS": "Bienvenu {{username}} !",
+          "ERROR": "La connexion a échoué. Veuillez vérifier vos identifiants."
+        },
+        "LOGOUT": {
+          "SUCCESS": "Au revoir {{username}} !"
+        },
+        "PASSWORD_GEN_SUCCESS": "Mot de passe généré avec succès pour {{username}}.",
+        "MFA_GEN_SUCCESS": "Secret 2FA généré avec succès.",
+        "ACCOUNT_EXISTS": "Ce nom d'utilisateur est déjà utilisé.",
+        "COPY_SUCCESS": "Copié dans le presse-papier !"
+      }
+    },
+    "ACTIONS": {
+      "COPY": "Copier",
+      "CONFIRM_NOTED": "J'ai bien noté mon mot de passe",
+      "CONTINUE": "Continuer"
+    },
+    "FORMS": {
+      "LABELS": {
+        "USERNAME": "Nom d'utilisateur",
+        "PASSWORD": "Mot de passe"
+      },
+      "PLACEHOLDERS": {
+        "USERNAME": "Nom d'utilisateur",
+        "PASSWORD": "Mot de passe"
+      },
+      "ACTIONS": {
+        "SHOW_PASSWORD": "Afficher le mot de passe",
+        "HIDE_PASSWORD": "Masquer le mot de passe"
+      },
+      "ERRORS": {
+        "USERNAME_INVALID": "Le nom d'utilisateur n'est pas valide.",
+        "PASSWORD_INVALID": "Le mot de passe n'est pas valide."
+      }
+    },
+    "BUTTONS": {
+      "LOGO": {
+        "ARIA": "Retour à la page d'accueil"
+      },
+      "MOBILE": {
+        "MENU": {
+          "ARIA": {
+            "OPEN": "Ouvrir le menu",
+            "CLOSE": "Fermer le menu"
+          }
+        }
+      },
+      "LOGIN": {
+        "LABEL": "Se connecter",
+        "ARIA": "Bouton pour ouvrir le formulaire de connexion"
+      },
+      "LOGOUT": {
+        "LABEL": "Se déconnecter",
+        "ARIA": "Bouton pour se déconnecter de l'application"
+      },
+      "CONTINUE": {
+        "LABEL": "Continuer",
+        "ARIA": "Bouton pour se connecter"
+      },
+      "CANCEL": {
+        "LABEL": "Annuler",
+        "ARIA": "Bouton pour annuler la saisie"
+      },
+      "CLOSE": {
+        "ARIA": "Fermer",
+        "TOOLTIP": "Fermer"
+      },
+      "BACKHOME": {
+        "LABEL": "Retour à l'accueil",
+        "ARIA": "Retour à la page d'accueil"
+      },
+      "LANGUAGE_TOGGLE": {
+        "ARIA": "Changer la langue en Français",
+        "TOOLTIP": "EN"
+      },
+      "SCROLL_TOP": {
+        "ARIA": "Aller en haut de la page",
+        "TOOLTIP": "Haut de page"
+      },
+      "UNMUTE": {
+        "ARIA": "Activer le son de la vidéo"
+      }
+    },
+    "LOADER": {
+      "ARIA": "Chargement de la page en cours"
+    }
+  }
+}

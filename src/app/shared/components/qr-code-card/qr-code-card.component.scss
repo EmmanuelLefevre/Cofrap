@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.qr-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: white;
+
+  &__data {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+  }
+
+  code {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    word-break: break-all;
+    width: 100%;
+    text-align: center;
+  }
+}
+

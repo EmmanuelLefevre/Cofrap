@@ -1,0 +1,76 @@
+name: 🧹 Cleanup Workflow
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    name: 🧹 Run Cleanup
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: 📂 Get Code
+        uses: actions/checkout@v4
+
+      - name: 🗑️ Delete Cancelled and Failed Runs
+        continue-on-error: true
+        run: |
+          # Loop back on runs 'cancelled' or 'failure' for whole workflows
+
+          for status in cancelled failure; do
+            echo "Processing status : $status"
+
+            # 1. Listing last 100 runs for the current status
+            # 2. Get only their IDs
+            # 3. Remove them one by one
+
+            gh run list --status "$status" --limit 100 --json databaseId -q '.[].databaseId' \
+            | xargs -r -I{} gh run delete {}
+          done
+
+      - name: 🗑️ Delete Useless Workflows Runs
+        continue-on-error: true
+        run: |
+          # Deletes workflows containing "fix", "maj" or "test" (case insensitive)
+
+          gh run list --limit 100 --status completed --json databaseId,displayTitle \
+          -q '.[] | select(.displayTitle | test("fix|maj|test"; "i")) | .databaseId' \
+          | xargs -r -t -I{} gh run delete {}
+
+      - name: 🗑️ Delete GitHub Pages Runs
+        continue-on-error: true
+        run: |
+          # Deletes workflows for GitHub Pages deployment ("pages build and deployment")
+
+          gh run list --limit 100 --json databaseId,displayTitle \
+          -q '.[] | select(.displayTitle == "pages build and deployment") | .databaseId' \
+          | xargs -r -I{} gh run delete {}
+
+      - name: 🗑️ Delete Maintenance Workflow Runs
+        continue-on-error: true
+        run: |
+          # Deletes old runs of the Maintenance Toggle workflow
+
+          MAINTENANCE_FILE="toggle-maintenance.yml"
+
+          gh run list --workflow "$MAINTENANCE_FILE" --status completed --limit 100 \
+          --json databaseId -q '.[].databaseId' \
+          | xargs -r -I{} gh run delete {}
+
+      - name: 🧼 Cleanup Self History
+        if: always()
+        run: |
+          # Deletes the history of this specific workflow (even successes)
+
+          WORKFLOW_FILE="cleanup.yml"
+
+          gh run list --workflow "$WORKFLOW_FILE" --status completed \
+          --json databaseId,number -q ".[] | select(.databaseId != $GITHUB_RUN_ID) | .databaseId" \
+          | xargs -r -I{} gh run delete {}

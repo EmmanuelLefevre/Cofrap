@@ -1,0 +1,17 @@
+/*===============BASE===============*/
+// (Reset, Typo, Animations, Globals)
+@use 'styles/base/fonts';
+@use 'styles/base/reset';
+@use 'styles/base/globals';
+@use 'styles/base/typography';
+@use 'styles/base/animations';
+
+/*===============LAYOUT===============*/
+// (Header, Footer, Grid, Sidebar)
+@use 'styles/layout/main-layout';
+
+/*===============THEMES===============*/
+// (Light/Dark Mode/Angular Material)
+@use 'styles/themes/theme-variables';
+@use 'styles/themes/light-theme';
+@use 'styles/themes/material-overrides';

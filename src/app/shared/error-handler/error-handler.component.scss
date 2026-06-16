@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.error-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  padding: 2rem;
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__code {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-black-color);
+    margin-bottom: 2rem;
+
+    &-value {
+      color: var(--text-primary-color);
+    }
+
+    &.is-english {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    max-width: 180px;
+    height: 50px;
+  }
+}

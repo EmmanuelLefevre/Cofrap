@@ -1,0 +1,36 @@
+<section class="error-view">
+  <h1 class="error-view__title">
+    {{ titleKey() | translate }}
+  </h1>
+
+  @if (code()) {
+    <h3
+      class="error-view__code"
+      [class.is-english]="translate.getCurrentLang() === 'en'">
+      <span class="error-view__label">{{ 'PAGES.ERROR.LABEL' | translate }}</span>
+      <span class="error-view__code-value">{{ code() }}</span>
+    </h3>
+  }
+
+  <div class="error-view__content">
+    <router-outlet />
+  </div>
+
+  <div class="error-view__actions">
+    @if (code() === '401') {
+      <main-button
+        variant="primary"
+        [label]="'UI.BUTTONS.LOGIN.LABEL' | translate"
+        [ariaLabel]="'UI.BUTTONS.LOGIN.ARIA' | translate"
+        (clicked)="navigateAction('/login')"
+        class="error-view__button" />
+    } @else if (code() === '' || specificCodes.includes(code())) {
+      <main-button
+        variant="primary"
+        [label]="'UI.BUTTONS.BACKHOME.LABEL' | translate"
+        [ariaLabel]="'UI.BUTTONS.BACKHOME.ARIA' | translate"
+        (clicked)="navigateAction('/')"
+        class="error-view__button" />
+    }
+  </div>
+</section>

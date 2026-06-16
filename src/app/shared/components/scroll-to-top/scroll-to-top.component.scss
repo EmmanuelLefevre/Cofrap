@@ -1,0 +1,71 @@
+@use 'abstracts' as *;
+
+:host {
+  display: block;
+}
+
+.scroll-top {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 3px solid var(--primary-color);
+  border-radius: 50%;
+  background-color: var(--bg-white-color);
+  z-index: 10000;
+
+  @include respond-to('tablet') {
+    visibility: hidden;
+    display: flex;
+    right: 2vw;
+    bottom: 5vh;
+    width: 3.5rem;
+    height: 3.5rem;
+    transition:
+      visibility 0.2s,
+      opacity 0.2s ease-in-out,
+      background-color 0.2s;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &--visible {
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  &:hover {
+    background-color: var(--bg-primary-color);
+
+    .scroll-top__icon {
+      color: var(--white-color);
+      animation: rubber-band 1.5s linear 0s infinite reverse;
+    }
+  }
+
+  @include respond-to('desktop') {
+    width: 4rem;
+    height: 4rem;
+    bottom: 3.5vh;
+  }
+
+  @include respond-to('desktop-xl') {
+    width: 4.4rem;
+    height: 4.4rem;
+    right: 2.3vw;
+    bottom: 3vh;
+  }
+
+  &__icon {
+    font-size: var(--size-icon-scroll-to-top);
+    color: var(--primary-color);
+    transition: color 0.2s ease-in-out;
+    background: transparent;
+  }
+
+  &__tooltip {
+    background-color: var(--bg-white-color);
+  }
+}

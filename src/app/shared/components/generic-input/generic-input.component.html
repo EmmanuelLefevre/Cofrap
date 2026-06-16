@@ -1,0 +1,37 @@
+<div
+  class="c-field"
+  [class]="className()"
+  [class.is-invalid]="hasError()">
+  <label
+    [for]="id()"
+    class="c-field__label">
+    {{ label() | translate }}
+  </label>
+
+  <div class="c-field__wrapper">
+    <input
+      [id]="id()"
+      [type]="inputType()"
+      [formControl]="control()"
+      [placeholder]="placeholder() | translate"
+      class="c-field__input" />
+
+    @if (isPassword() && behaviors()?.hasPasswordToggle) {
+      <button
+        type="button"
+        class="c-field__toggle"
+        (click)="togglePassword()"
+        [attr.aria-label]="
+          (showPassword() ? 'UI.FORMS.ACTIONS.HIDE_PASSWORD' : 'UI.FORMS.ACTIONS.SHOW_PASSWORD') | translate
+        ">
+        <i [class]="showPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+      </button>
+    }
+  </div>
+
+  @if (hasError()) {
+    <div class="c-field__error">
+      <span>{{ errorKey() | translate }}</span>
+    </div>
+  }
+</div>

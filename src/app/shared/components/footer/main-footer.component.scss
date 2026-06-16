@@ -1,0 +1,137 @@
+@use 'abstracts' as *;
+
+:host {
+  display: block;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--text-black-color);
+  width: 100%;
+  padding: 1rem 0;
+  box-shadow: var(--shadow-footer);
+  background-color: var(--bg-footer-color);
+
+  &__social-list {
+    display: flex;
+    gap: 0.9rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__social-item {
+    font-size: var(--size-icon-footer-social);
+  }
+
+  &__icon {
+    color: var(--primary-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
+
+  &__copyright {
+    margin: 0;
+    font-size: var(--size-icon-footer-copyright);
+    letter-spacing: 0.5px;
+  }
+
+  &__owner {
+    color: var(--text-primary-color);
+    font-size: var(--size-icon-footer-owner);
+    font-weight: bold;
+  }
+
+  &__hosting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: var(--font-size-footer);
+    color: var(--text-black-color);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: inherit;
+    text-align: center;
+
+    @include respond-to('tablet') {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+    }
+
+    @include respond-to('desktop') {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__group {
+    display: inline-flex;
+    gap: 0.3rem;
+  }
+
+  &__break {
+    display: none;
+
+    @include respond-to('tablet') {
+      display: block;
+      width: 100%;
+      height: 0rem;
+    }
+
+    @include respond-to('desktop') {
+      display: none;
+    }
+  }
+
+  &__separator {
+    display: none;
+
+    @include respond-to('tablet') {
+      display: inline-block;
+      margin: 0 0.1rem;
+    }
+
+    &--desktop {
+      @include respond-to('tablet') {
+        display: none;
+      }
+
+      @include respond-to('desktop') {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__value {
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary-color);
+
+    &:hover {
+      color: var(--text-secondary-color);
+    }
+  }
+
+  &__phone_icon {
+    font-size: var(--size-icon-footer);
+    color: var(--primary-color);
+    margin: 0 5px;
+  }
+
+  &__phone {
+    display: flex;
+    align-items: center;
+    margin-top: 0.2rem;
+    font-size: var(--font-size-footer);
+  }
+}

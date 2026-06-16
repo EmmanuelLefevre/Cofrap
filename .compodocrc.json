@@ -1,0 +1,14 @@
+{
+  "assetsFolder": "public",
+  "disableCoverage": true,
+  "disableGraph": false,
+  "disableInternal": true,
+  "disablePrivate": true,
+  "hideGenerator": true,
+  "includes": "./docs",
+  "open": true,
+  "output": ".documentation-output",
+  "port": 8080,
+  "title": "Cofrap Documentation",
+  "tsconfig": "tsconfig.doc.json"
+}

@@ -1,0 +1,27 @@
+@use 'abstracts' as *;
+
+:host {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.background {
+  position: relative;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  background-image: url('/assets/background/bg-hg.png'), url('/assets/background/bg-bd.png');
+  background-position:
+    top left,
+    bottom right;
+  background-repeat: no-repeat, no-repeat;
+  background-size: clamp(320px, 60vmin, 800px), clamp(260px, 52vmin, 600px);
+  overflow: hidden;
+  isolation: isolate;
+  z-index: 0;
+
+  @include respond-to-ratio('portrait') {
+    background-size: clamp(250px, 65vw, 600px), clamp(190px, 45vw, 500px);
+  }
+}

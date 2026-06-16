@@ -1,0 +1,22 @@
+<background>
+  <section class="home">
+    <div class="home__hero">
+      <div class="home__welcome">
+        <img
+          ngSrc="assets/logos/logo.png"
+          width="529"
+          height="152"
+          priority
+          alt="{{ appNameKey() | translate }}"
+          class="home__logo" />
+
+        <h1 class="home__title">{{ 'PAGES.HOME.HERO.TITLE' | translate }}</h1>
+
+        <p class="home__description">
+          <strong class="home__accent">{{ appNameKey() | translate }}</strong>
+          {{ 'PAGES.HOME.HERO.DESCRIPTION' | translate }}
+        </p>
+      </div>
+    </div>
+  </section>
+</background>

@@ -1,0 +1,253 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop, 'feature/**', 'hotfix/**', 'release/**']
+  pull_request:
+    branches: [main, develop]
+
+env:
+  NG_APP_BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+  NG_APP_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  NG_APP_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
+# Cancel current execution for this workflow and branch if a new push is detected
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-integrity:
+    name: 👮 Check Lockfile Integrity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📂 Get Code
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Environment
+        id: install
+        uses: ./.github/actions/setup-env
+        with:
+          step-name: '⚙️ Verify Lockfile Sync'
+
+      - name: 📢 Failure Notification
+        if: failure() && steps.install.outcome == 'failure'
+        run: |
+          echo "##### 🚨 CRIMINAL ACTIVITY DETECTED ! #####" >> $GITHUB_STEP_SUMMARY
+          echo "CI refuses to work with untracked dependencies 😤" >> $GITHUB_STEP_SUMMARY
+          echo "Hey ${{ github.actor }}, you modified 'package.json' without updating 'pnpm-lock.yaml' !" >> $GITHUB_STEP_SUMMARY
+          echo "👉 Run 'pnpm install --frozen-lockfile' locally and push your updated lockfile plz..." >> $GITHUB_STEP_SUMMARY
+          exit 1
+
+  security:
+    name: 🛡️ Security Scans
+    needs: [check-integrity]
+    runs-on: ubuntu-latest
+
+    environment:
+      name: snyk
+      url: https://app.snyk.io/org/emmanuellefevre/projects?groupBy=targets&before&after&searchQuery=&sortBy=highest+severity&filters[Show]=&filters[Integrations]=&filters[CollectionIds]=
+
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+      - name: 📂 Get Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔑 Check Leaked Secrets
+        id: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📢 Failure Notification
+        if: failure() && steps.gitleaks.outcome == 'failure'
+        run: |
+          echo "##### 🚨 SECURITY BREACH DETECTED ! #####" >> $GITHUB_STEP_SUMMARY
+          echo "😱 Are you trying to offer our API Keys to the hackers ?" >> $GITHUB_STEP_SUMMARY
+          echo "Hey ${{ github.actor }}, Gitleaks found a secret in your code !" >> $GITHUB_STEP_SUMMARY
+          echo "We appreciate your generosity, but please revoke it immediately and remove it from git history." >> $GITHUB_STEP_SUMMARY
+          echo "👉 Check the logs in the "🔑 Check Leaked Secrets" step to find the leak..." >> $GITHUB_STEP_SUMMARY
+          exit 1
+
+      - name: 🛠️ Setup Environment
+        uses: ./.github/actions/setup-env
+
+      - name: 🛡️ PNPM Audit
+        run: pnpm audit --audit-level=high
+
+      - name: 🧪 Security Linting
+        run: pnpm lint:security:ci
+
+      - name: 🕵️ Snyk Packages Analysis
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          # 🚩 Only blocks if a 'high' vulnerability is found
+          command: test
+          args: --severity-threshold=high
+
+      - name: 🏗️ Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          queries: security-extended,security-and-quality
+          config: |
+            paths-ignore:
+              - 'src/**/*.spec.ts'
+              - 'src/test-setup.ts'
+
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+
+  quality:
+    name: ✨ Quality & Tests
+    needs: [check-integrity]
+    runs-on: ubuntu-latest
+
+    environment:
+      name: sonarqube
+      url: https://sonarcloud.io/project/overview?id=EmmanuelLefevre_Cofrap
+
+    steps:
+      - name: 📂 Get Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🛠️ Setup Environment
+        uses: ./.github/actions/setup-env
+
+      - name: 💄 Prettier Formatting
+        run: pnpm format:check
+
+      - name: 🧹 ESLint Linting
+        run: pnpm lint:ci
+
+      - name: 🔍 HTMLHint Linting
+        run: pnpm lint:html
+
+      - name: 🎨 Stylelint SCSS
+        run: pnpm lint:scss:ci
+
+      - name: 🧪 Run Vitest Tests & Coverage
+        id: vitest
+        run: pnpm test:coverage
+
+      - name: 📢 Failure Notification
+        if: failure() && steps.vitest.outcome == 'failure'
+        run: |
+          echo "##### 🚨 CRIMINAL ACTIVITY DETECTED ! #####" >> $GITHUB_STEP_SUMMARY
+          echo "❌ Pipeline failed because test coverage is less than 80% !" >> $GITHUB_STEP_SUMMARY
+          echo "Hey ${{ github.actor }}, please work harder on your coverage ! 🤣🤣🤣" >> $GITHUB_STEP_SUMMARY
+          exit 1
+
+      - name: ☁️ SonarQube Cloud Scan
+        if: success() && github.ref == 'refs/heads/main'
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: 📊 SonarQube Cloud Quality Gate
+        if: github.ref == 'refs/heads/main'
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: 🧱 Build Check
+        run: pnpm build --configuration=production
+
+  documentation:
+    name: 📚 GitHub Pages Documentation
+    needs: [security, quality]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: 📂 Get Code
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Environment
+        uses: ./.github/actions/setup-env
+
+      - name: 📚 Build Documentation
+        run: pnpm doc:ci --base-href /${{ github.event.repository.name }}/
+
+      - name: ⚙️ Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 📤 Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './.documentation-output'
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy:
+    name: 🎯 Deploy to Production
+    needs: [security, quality]
+    # 🚩 Temporarily disabled (will never launch)
+    # if: github.ref == 'refs/heads/main' && false
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+      url: https://Cofrap.emmanuellefevre.com/
+
+    steps:
+      - name: 📂 Get Code
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Environment
+        uses: ./.github/actions/setup-env
+
+      - name: 🧱 Build Project
+        run: pnpm build --configuration=production
+
+      - name: 🔄 Inject CSP Variables in .htaccess
+        run: |
+          sed -i "s|__MY_BACKEND_URL__|${{ secrets.BACKEND_API_URL }}|g" dist/Cofrap/browser/.htaccess
+
+      - name: 🚀 Sync Files to Server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+          # Delete from the server the files that are no longer in your code (cleanup)
+          ARGS: '-rlgoDazvc -i --delete'
+
+          # ⚠️ Double-check folder name in /dist directory after build (pnpm build)
+          SOURCE: 'dist/Cofrap/browser/'
+
+          # Avoids deleting files on server
+          EXCLUDE: '/maintenance.enable'
+
+          # Server IP address
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+
+          # Exact location to place code (/home/<your_user>/public_html)
+          TARGET: ${{ secrets.TARGET_PATH }}
+
+      - name: 🎯 Deployment
+        run: echo "Deployment is underway following security and quality validations..."

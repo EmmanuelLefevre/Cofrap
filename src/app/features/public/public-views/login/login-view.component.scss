@@ -1,0 +1,50 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 2rem;
+
+  &__wrapper {
+    width: 100%;
+    max-width: 480px;
+    animation: fade-in-up 0.3s ease-in-out;
+  }
+
+  &__container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 40px;
+    border-radius: 12px;
+    border: 2px solid var(--primary-color);
+    background-color: var(--bg-white-color);
+    box-shadow: var(--shadow-login-page);
+    transform-style: preserve-3d;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    font-size: var(--font-size-h1-form);
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    font-family: var(--font-main);
+    font-size: var(--font-size-base);
+    color: var(--primary-color);
+    line-height: 1.5;
+  }
+}

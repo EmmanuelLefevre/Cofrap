@@ -1,0 +1,42 @@
+<background>
+  <section class="login">
+    <div class="login__wrapper">
+      <div class="login__container">
+        <close-button />
+
+        <div class="login__header">
+          <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.TITLE' | translate }}</h1>
+          <h2 class="login__subtitle">{{ 'PAGES.AUTH.LOGIN.SUBTITLE' | translate }}</h2>
+        </div>
+
+        @switch (flowStep()) {
+          @case ('INIT') {
+            <dynamic-form
+              [fields]="loginFields"
+              [isLoading]="isLoading()"
+              (submitted)="onFormSubmit($event)"
+              (cancelled)="onCancel()" />
+          }
+          @case ('PWD_DISPLAY') {
+            <qr-code-card
+              [qrCode]="authService.currentPasswordQrCode()!"
+              [rawValue]="authService.currentRawPassword()!"
+              title="PAGES.AUTH.QR_VIEW.QR_TITLE"
+              (copied)="confirmPasswordNoted()" />
+            <button
+              (click)="confirmPasswordNoted()"
+              type="button">{{ 'UI.ACTIONS.CONFIRM_NOTED' | translate }}
+            </button>
+          }
+          @case ('MFA_DISPLAY') {
+            <qr-code-card
+              [qrCode]="authService.currentMfaQrCode()!"
+              [rawValue]="'MFA_SECRET_HIDDEN'"
+              title="PAGES.AUTH.QR_VIEW.MFA_TITLE"
+              (copied)="finalize()" />
+          }
+        }
+      </div>
+    </div>
+  </section>
+</background>

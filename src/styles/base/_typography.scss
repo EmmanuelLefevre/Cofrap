@@ -1,0 +1,112 @@
+/* =========== BODY =========== */
+body {
+  font-family: var(--font-main);
+  font-weight: var(--font-weight-regular);
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========== TITLES =========== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+h2,
+h3,
+h4 {
+  font-family: var(--font-title-secondary);
+}
+
+h1 {
+  color: var(--bg-text-effect-color);
+  font-family: var(--font-title-primary);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  background: var(--bg-text-effect);
+  background-size: var(--bg-text-effect-size);
+  background-clip: var(--bg-text-effect-clip);
+  animation: var(--bg-text-effect-animation);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+h4 {
+  color: var(--primary-color);
+  font-size: var(--font-size-h4);
+}
+
+h5 {
+  font-family: var(--font-robot-condensed);
+  font-size: var(--font-size-h5);
+}
+
+/* =========== TAGS =========== */
+blockquote {
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+}
+
+cite {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-bubble);
+}
+
+footer {
+  font-family: var(--font-footer);
+}
+
+nav {
+  font-family: var(--font-nav);
+  font-weight: var(--font-weight-light);
+}
+
+p {
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  text-wrap: pretty;
+}
+
+p,
+li,
+blockquote,
+cite,
+span {
+  text-wrap: pretty;
+}
+
+code,
+cite,
+pre {
+  font-family: var(--font-mono);
+}
+
+/* =========== LINKS =========== */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========== FORMS =========== */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}

@@ -1,0 +1,32 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="c-form">
+  <div class="c-form__fields">
+    @for (field of visibleFields(); track field.name) {
+      <generic-input
+        [id]="field.name"
+        [label]="field.label"
+        [type]="field.type"
+        [placeholder]="field.placeholder || ''"
+        [control]="getControl(field.name)"
+        [behaviors]="field.behaviors"
+        [className]="field.className || ''" />
+    }
+  </div>
+
+  <div class="c-form__actions">
+    <main-button
+      type="submit"
+      [label]="'UI.BUTTONS.CONTINUE.LABEL'"
+      [ariaLabel]="'UI.BUTTONS.CONTINUE.ARIA'"
+      [isLoading]="isLoading()"
+      [isDisabled]="form.invalid" />
+
+    <main-button
+      variant="ghost"
+      [label]="'UI.BUTTONS.CANCEL.LABEL'"
+      [ariaLabel]="'UI.BUTTONS.CANCEL.ARIA'"
+      (clicked)="cancelled.emit()" />
+  </div>
+</form>

@@ -1,0 +1,69 @@
+import { Component, input, output, computed, inject, effect, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+
+import { DynamicFormRawValue, FormFieldConfig, FormValue } from '@core/_models/forms/form.model';
+
+import { GenericInputComponent } from '@shared/components/generic-input/generic-input.component';
+import { MainButtonComponent } from '@shared/components/button/main-button.component';
+
+@Component({
+  selector: 'dynamic-form',
+  imports: [
+    ReactiveFormsModule,
+    GenericInputComponent,
+    MainButtonComponent
+  ],
+  templateUrl: './dynamic-form.component.html',
+  styleUrl: './dynamic-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+
+export class DynamicFormComponent {
+
+  private readonly fb = inject(FormBuilder);
+
+  // --- ENTRÉES ET SORTIES (Signals) ---
+  readonly fields = input.required<FormFieldConfig[]>();
+  readonly isLoading = input<boolean>(false);
+
+  readonly submitted = output<DynamicFormRawValue>();
+  readonly cancelled = output<void>();
+
+  protected form: FormGroup = this.fb.group({});
+
+  protected readonly visibleFields = computed(() => this.fields());
+
+  constructor() {
+    effect(() => {
+      const FIELDS = this.fields();
+      FIELDS.forEach(f => {
+        if (!this.form.contains(f.name)) {
+          this.form.addControl(f.name, new FormControl(f.initialValue || '', {
+            validators: f.validators || []
+          }));
+        }
+      });
+    });
+  }
+
+  resetForm(): void {
+    this.form.reset();
+  }
+
+  patchValue(value: Partial<DynamicFormRawValue>): void {
+    this.form.patchValue(value);
+  }
+
+  protected getControl(name: string): FormControl<FormValue> {
+    return this.form.get(name) as FormControl<FormValue>;
+  }
+
+  protected onSubmit(): void {
+    if (this.form.valid) {
+      this.submitted.emit(this.form.getRawValue() as DynamicFormRawValue);
+    }
+    else {
+      this.form.markAllAsTouched();
+    }
+  }
+}

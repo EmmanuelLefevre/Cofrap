@@ -1,0 +1,74 @@
+/* =========== DOCUMENT ROOT =========== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========== BODY =========== */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+
+  &.no-scroll {
+    height: 100vh;
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+}
+
+/* =========== REACTIVATING SELECTION (UX CRITICAL) =========== */
+input,
+textarea,
+[contenteditable='true'] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* =========== FORMS / INTERACTIVES ELEMENTS =========== */
+button,
+input,
+select,
+textarea {
+  border: none;
+  background: none;
+}
+
+/* =========== TAGS =========== */
+a {
+  display: inline-block;
+  cursor: pointer;
+}
+
+button {
+  width: fit-content;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* =========== ACCESSIBILITY (SCREEN READERS) =========== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========== BACKGROUND TEXT EFFECT =========== */
+.background-text-effect {
+  color: var(--bg-text-effect-color);
+  font-family: var(--font-robot-condensed);
+  font-size: var(--font-size-h5);
+  line-height: 1.4;
+  background: var(--bg-text-effect);
+  background-size: var(--bg-text-effect-size);
+  background-clip: var(--bg-text-effect-clip);
+  animation: var(--bg-text-effect-animation);
+}

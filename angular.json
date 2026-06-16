@@ -1,0 +1,389 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "pnpm",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "Cofrap": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "fileNameStyleGuide": "2016",
+          "inlineStyle": false,
+          "inlineTemplate": false,
+          "routing": true,
+          "skipTests": true,
+          "ssr": true,
+          "standalone": true,
+          "strict": true,
+          "style": "scss",
+          "zoneless": false
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:component": {
+          "changeDetection": "OnPush",
+          "displayBlock": true,
+          "inlineStyle": false,
+          "inlineTemplate": false,
+          "prefix": "",
+          "skipTests": false,
+          "standalone": true,
+          "style": "scss",
+          "type": "component"
+        },
+        "@schematics/angular:directive": {
+          "prefix": "",
+          "skipTests": false,
+          "standalone": true,
+          "type": "directive"
+        },
+        "@schematics/angular:enum": {
+          "type": "enum"
+        },
+        "@schematics/angular:guard": {
+          "functional": false,
+          "implements": [
+            "CanActivate",
+            "CanActivateChild",
+            "CanDeactivate",
+            "CanMatch"
+          ],
+          "skipTests": true,
+          "typeSeparator": "."
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true,
+          "typeSeparator": "."
+        },
+        "@schematics/angular:interface": {
+          "type": "model"
+        },
+        "@schematics/angular:module": {
+          "typeSeparator": "."
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": false,
+          "standalone": true,
+          "typeSeparator": "."
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true,
+          "typeSeparator": "."
+        },
+        "@schematics/angular:service": {
+          "skipTests": false,
+          "type": "service"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@ngx-env/builder:application",
+          "options": {
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "scripts": [],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "src/styles"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/_environments/environment.ts",
+                  "with": "src/_environments/environment.prod.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1MB",
+                  "maximumError": "2MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1.5MB",
+                  "maximumError": "10MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kB",
+                  "maximumError": "12kB"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@ngx-env/builder:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "Cofrap:build:production"
+            },
+            "development": {
+              "buildTarget": "Cofrap:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@analogjs/vitest-angular:test",
+          "options": {
+            "configFile": "vitest.config.ts"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ========================================================================
+  ANGULAR CLI WORKSPACE CONFIGURATION (angular.json)
+
+  This document defines global settings, build targets, and default options
+  for the 'ng generate' command across the workspace.
+  =========================================================================
+
+  --- BUILD CONFIGURATIONS ------------------------------------------------
+
+  - @architect.build.configurations.production.fileReplacements
+    [Environments] List of files to substitute during Production build.
+    This is critical for switching configuration variables (e.g., API URLs)
+    between development and production environments.
+
+    * replace: "src/_environments/environment.ts"
+      The default environment file imported by the application.
+
+    * with: "src/_environments/environment.prod.ts"
+      The file that substitutes the default one when command
+      `ng build --configuration=production` is executed.
+
+  - @architect.build.options.stylePreprocessorOptions
+    [Sass Resolution] Configures how Sass resolves imports.
+
+    * includePaths: ["src/styles"]
+      Defines the root directories for Sass lookups.
+      [Benefit] Allows using absolute imports like `@use 'abstracts'` from any component,
+      eliminating the need for deep relative paths like `../../styles/abstracts`.
+
+  --- TESTING CONFIGURATION -----------------------------------------------
+
+  - @architect.test
+    [Unit Testing] Configuration for the test runner.
+
+    * builder: "@angular/build:unit-test"
+      [Modern] Uses the new build system for running unit tests.
+
+    * options.tsConfig: "tsconfig.spec.json"
+      Points to the TypeScript configuration specific to testing.
+
+    * options.runnerConfig: "vitest.config.ts"
+      [Engine] Defines Vitest as test engine instead of Karma.
+      Using `vitest.config.ts` allows for much faster testing, better ESM support
+      and native integration with modern tooling.
+
+    * options.coverage: true
+      [Quality] Automatically activates the generation of code coverage reports
+      during test execution. This allows you to see which parts of the code are
+      covered by the unit tests.
+
+    * options.tsConfig: "tsconfig.spec.json"
+      Points to TypeScript configuration specific to testing.
+
+  --- SCHEMATICS CONFIGURATION (ng generate defaults) ---------------------
+
+  1. @schematics/angular:application (Project Initialization)
+
+    * fileNameStyleGuide: "2016"
+      [Convention] Uses the explicit naming convention (e.g., `app.component.ts`).
+
+    * inlineStyle: false / inlineTemplate: false
+      [Clarity] Enforces separation of templates (.html) and styles (.scss)
+      into dedicated files.
+
+    * routing: true
+      Automatically sets up the router configuration via `app.routes.ts`.
+
+    * skipTests: true
+      [Setup] Skips unit test file generation for the initial application shell.
+
+    * ssr: true
+      [Performance] Configures the application for Server-Side Rendering (SSR).
+
+    * standalone: true
+      [Modern] Generates the initial structure using the Standalone Component API (no NgModules).
+
+    * strict: true
+      Enables strict type checking and bundle budgets.
+
+    * style: "scss"
+      Sets SCSS (Sass) as the default stylesheet format.
+
+    * zoneless: false
+      [Compatibility] Keeps `zone.js` enabled for change detection.
+
+  2. @schematics/angular:class (Class)
+
+    * skipTests: true
+      Plain classes/DTOs usually don't need dedicated spec files.
+
+  3. @schematics/angular:component (Components)
+
+    * changeDetection: "OnPush"
+      [Performance] Sets the change detection strategy to `OnPush`. Component updates
+      only when inputs change or events occur.
+
+    * displayBlock: true
+      [Layout] Automatically adds `:host { display: block; }` to the component's styles.
+
+    * inlineStyle / inlineTemplate: false
+      Forces the separation of `.html` and `.scss` files.
+
+    * prefix: ""
+      The selector prefix is explicitly empty.
+
+    * skipTests: false
+      [Quality] Generates a unit test file (`.spec.ts`).
+
+    * standalone: true
+      [Modern] Uses the Standalone API for components.
+
+    * style: "scss"
+      Sets SCSS as the default.
+
+    * type: "component"
+      Adds the `.component.ts` suffix to the file name.
+
+  4. @schematics/angular:directive (Directives)
+
+    * prefix: ""
+      The selector prefix is explicitly empty.
+
+    * skipTests: false
+      [Quality] Generates a unit test file (`.spec.ts`).
+
+    * standalone: true
+      [Modern] Uses the Standalone API for directives.
+
+    * type: "directive"
+      Adds the `.directive.ts` suffix to the file name.
+
+  5. @schematics/angular:enum (Enum)
+
+    * type: "enum"
+      Adds the `.enum.ts` suffix to the file name.
+
+  6. @schematics/angular:guard (Guards)
+
+    * functional: false
+      Generates a Class-based guard (instead of a functional one).
+
+    * implements: [Array]
+      Generates the Guard class implementing the four core routing interfaces.
+
+    * skipTests: true
+      Guards are often better tested via integration or E2E as they rely on the router.
+
+    * typeSeparator: "."
+      Defines the separator style (e.g., `auth.guard.ts`).
+
+  7. @schematics/angular:interceptor (HTTP Interceptors)
+
+    * skipTests: true
+      Interceptors are usually better tested via integration/E2E as they handle side effects.
+
+    * typeSeparator: "."
+      Defines the separator style (e.g., `auth.interceptor.ts`).
+
+  8. @schematics/angular:interface (Interfaces)
+
+    * type: "model"
+      [DDD/Model] Forces the use of the `.model.ts` suffix for data structures.
+
+  9. @schematics/angular:module (Modules)
+
+    * typeSeparator: "."
+      Defines the separator style (only relevant if Standalone is disabled).
+
+  10. @schematics/angular:pipe (Pipes)
+
+    * skipTests: false
+      [Quality] Pipes contain critical logic and should have unit tests by default.
+
+    * standalone: true
+      Uses the Standalone API for Pipes.
+
+  11. @schematics/angular:resolver (Resolvers)
+
+    * skipTests: true
+      Resolvers are tightly coupled to routing and data fetching, often tested via E2E.
+
+  12. @schematics/angular:service (Services)
+
+    * skipTests: false
+      [Quality] Services contain critical business logic and should have unit tests.
+
+    * type: "service"
+      Adds the `.service.ts` suffix to the file name.
+*/

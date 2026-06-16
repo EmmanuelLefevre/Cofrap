@@ -1,0 +1,14 @@
+<button
+  type="button"
+  class="scroll-top"
+  [class.scroll-top--visible]="showScroll()"
+  (click)="scrollToTop()"
+  [aria-label]="'UI.BUTTONS.SCROLL_TOP.ARIA' | translate"
+  [matTooltip]="'UI.BUTTONS.SCROLL_TOP.TOOLTIP' | translate"
+  matTooltipPosition="left"
+  matTooltipShowDelay="200"
+  matTooltipClass="scroll-top__tooltip">
+  <fa-icon
+    [icon]="faAngleDoubleUp"
+    class="scroll-top__icon" />
+</button>

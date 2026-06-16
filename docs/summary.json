@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Architecture",
+    "file": "ARCHITECTURE.md"
+  },
+  {
+    "title": "Setup",
+    "file": "SETUP.md"
+  },
+  {
+    "title": "Qualite",
+    "file": "QUALITE.md"
+  },
+  {
+    "title": "Tests",
+    "file": "TESTS.md"
+  },
+  {
+    "title": "Configuration",
+    "file": "CONFIGURATION.md"
+  },
+  {
+    "title": "Build & Packaging",
+    "file": "BUILD-&-PACKAGING.md"
+  },
+  {
+    "title": "CICD",
+    "file": "CICD.md"
+  },
+  {
+    "title": "Styles",
+    "file": "STYLES.md"
+  },
+  {
+    "title": "Multi Langues",
+    "file": "MULTI-LANGUES.md"
+  },
+  {
+    "title": "Accessibilite",
+    "file": "ACCESSIBILITE.md"
+  },
+  {
+    "title": "SEO",
+    "file": "SEO.md"
+  },
+  {
+    "title": "Documentation",
+    "file": "DOCUMENTATION.md"
+  },
+  {
+    "title": "Rules References",
+    "file": "RULES-REFERENCES.md"
+  },
+  {
+    "title": "FAQ & Erreurs",
+    "file": "FAQ-&-ERREURS.md"
+  }
+]

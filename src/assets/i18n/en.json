@@ -1,0 +1,289 @@
+{
+  "META": {
+    "DEFAULT": {
+      "APP_NAME": "Cofrap",
+      "TITLE": "Cofrap",
+      "DESCRIPTION": "Automated account creation and strong authentication solution for the COFRAP Cloud platform. Generation of complex passwords and mandatory two-factor authentication.",
+      "KEYWORDS": "COFRAP, Cloud, Serverless, OpenFaaS, Kubernetes, Security, Strong Authentication, 2FA, TOTP, QR Code, Secure password"
+    },
+    "PAGES": {
+      "HOME": {
+        "TITLE": "Home",
+        "DESCRIPTION": "Welcome to Cofrap"
+      },
+      "CONTACT": {
+        "TITLE": "Contact",
+        "DESCRIPTION": "Website contact page"
+      },
+      "LOGIN": {
+        "TITLE": "Login",
+        "DESCRIPTION": "Website login page"
+      },
+      "PRIVATE": {
+        "ACCOUNT": {
+          "TITLE": "Account",
+          "DESCRIPTION": "Webpage of your account."
+        }
+      },
+      "ERROR": {
+        "401": {
+          "TITLE": "Unauthorized",
+          "DESCRIPTION": "You do not have permission to access this page."
+        },
+        "403": {
+          "TITLE": "Forbidden",
+          "DESCRIPTION": "You do not have the necessary permissions to access this resource."
+        },
+        "404": {
+          "TITLE": "Page Not Found",
+          "DESCRIPTION": "The page you are looking for does not exist or has been deleted."
+        },
+        "408": {
+          "TITLE": "Timeout",
+          "DESCRIPTION": "The connection took too long to respond."
+        },
+        "500": {
+          "TITLE": "Server Error",
+          "DESCRIPTION": "An unexpected error occurred on our servers."
+        },
+        "503": {
+          "TITLE": "Maintenance Error",
+          "DESCRIPTION": "Website is under contruction, we'll back soon."
+        },
+        "GENERIC": {
+          "TITLE": "Error Occurred",
+          "DESCRIPTION": "We encountered a problem while processing your request."
+        },
+        "UNKNOWN": {
+          "TITLE": "Unknown Error",
+          "DESCRIPTION": "An unknown error has occurred. Please try again later."
+        }
+      }
+    }
+  },
+  "LAYOUT": {
+    "HEADER": {
+      "NAV": {
+        "WELCOME": "Welcome",
+        "PRIVATE": {
+          "ACCOUNT": "Account"
+        }
+      }
+    },
+    "FOOTER": {
+      "LEGAL": {
+        "COPYRIGHT": "©{{year}}",
+        "RIGHTS_RESERVED": "All rights reserved."
+      },
+      "CREDITS": {
+        "DEVELOPED_BY_PREFIX": "Site developped by",
+        "DEVELOPER_NAME": "Emmanuel Lefevre ",
+        "HOSTED_BY_PREFIX": "and hosted on",
+        "HOST_PROVIDER_NAME": "Planet Hoster "
+      },
+      "ADDRESS": {
+        "STREET": "10, Rue de la Paix 75000 Paris",
+        "PHONE": "0 800 123 456"
+      },
+      "SOCIAL_LINKS": {
+        "LINKEDIN": {
+          "TOOLTIP": "LinkedIn Link",
+          "ARIA": "Link to the website developer's LinkedIn profile"
+        },
+        "GITHUB": {
+          "TOOLTIP": "GitHub Link",
+          "ARIA": "Link to the developer's GitHub profile"
+        },
+        "PORTFOLIO": {
+          "TOOLTIP": "Portfolio",
+          "ARIA": "Link to the website developer's portfolio"
+        },
+        "CONTACT": {
+          "TOOLTIP": "Contact us",
+          "ARIA": "Link to the website's contact form"
+        },
+        "HOST": {
+          "TOOLTIP": "Host",
+          "ARIA": "Link to the website's hosting provider"
+        }
+      }
+    }
+  },
+  "PAGES": {
+    "HOME": {
+      "HERO": {
+        "TITLE": "Securing our Cloud Access !",
+        "DESCRIPTION": " presents the Serverless architecture for protecting your infrastructure. Please generate your secure credentials in accordance with our requirements."
+      }
+    },
+    "AUTH": {
+      "LOGIN": {
+        "TITLE": "Great to see you again !",
+        "SUBTITLE": "Login to access your private area.",
+        "CTA_SWITCH": "Already have an account ? Login..."
+      },
+      "QR_VIEW": {
+        "QR_TITLE": "Qr Code",
+        "MFA_TITLE": "2FA setup"
+      }
+    },
+    "ERROR": {
+      "TITLE": {
+        "COMMON": "An error has occurred.",
+        "UNKNOWN": "An unknown error has occurred."
+      },
+      "LABEL": "Error",
+      "UNAUTHORIZED": {
+        "TITLE": "Forbidden Access",
+        "MESSAGE": "We have a few questions before we let you through. First of all: who are you ? Your accreditation isn't valid for this area."
+      },
+      "SERVER": {
+        "SUBTITLE": "Oops, our servers are down...",
+        "INSTRUCTION": {
+          "MOBILE": "Give the developer a bulk whack with your thumb !",
+          "DESKTOP": "Choose the guilty developer and give him a whack with a bulk !"
+        },
+        "APOLOGIZES": {
+          "DEV": {
+            "1": "Sorry, it's my fault... I'll fix it !",
+            "2": "It wasn't me, it was K8s !",
+            "3": "Contact guil master 🤣",
+            "4": "Not relevant, my specialty is MIAGE !"
+          }
+        },
+        "IMG": {
+          "ALT": {
+            "BULK": "Bulk to hit the developers",
+            "HAMSTER": "Hamster coming out of a hole, laughing at you"
+          }
+        }
+      },
+      "UNKNOWN": {
+        "TITLE": "Houston, we have a problem !",
+        "SUBTITLE": "It would seem that this page has taken a leap through space and time...",
+        "IMG": {
+          "ALT": "An alien flying saucer abducts a camper asleep in his sleeping bag"
+        }
+      },
+      "TIMEOUT": {
+        "TITLE": "Signal loss !",
+        "SUBTITLE": "Even light takes time to travel across the universe...",
+        "IMG": {
+          "ALT": "A sandglass spinning on its axis"
+        }
+      },
+      "MAINTENANCE": {
+        "TITLE": "Helmets are needed !",
+        "SUBTITLE": "We'll let the code dry and we'll be back soon...",
+        "IMG": {
+          "ALT": "A technical team working on a screen undergoing maintenance"
+        }
+      },
+      "GENERIC": {
+        "TITLE": "Our algorithms are formal : it's impossible...",
+        "SUBTITLE": "Tweak with the flashing lights to escape quickly !",
+        "SUCCESS": "Error fixed. Stable exit tunnel !",
+        "IMG": {
+          "ALT": "An illustration of a desert landscape devastated by drought"
+        },
+        "BUTTON": {
+          "ARIA": "Fix system {{id}}"
+        }
+      }
+    }
+  },
+  "UI": {
+    "QR_CARD": {
+      "ALT_TEXT": "QR Code generated"
+    },
+    "SNACKBAR": {
+      "AUTH": {
+        "LOGIN": {
+          "SUCCESS": "Welcome {{username}} !",
+          "ERROR": "Connection failed. Please verify your credentials."
+        },
+        "LOGOUT": {
+          "SUCCESS": "Goodbye {{username}} !"
+        },
+        "PASSWORD_GEN_SUCCESS": "Password successfully generated for {{username}}.",
+        "MFA_GEN_SUCCESS": "Secret 2FA successfully generated.",
+        "ACCOUNT_EXISTS": "This username is already in use.",
+        "COPY_SUCCESS": "Copied to clipboard !"
+      }
+    },
+    "ACTIONS": {
+      "COPY": "Copy",
+      "CONFIRM_NOTED": "I have noted down my password.",
+      "CONTINUE": "Continue"
+    },
+    "FORMS": {
+      "LABELS": {
+        "USERNAME": "Username",
+        "PASSWORD": "Password"
+      },
+      "PLACEHOLDERS": {
+        "USERNAME": "Username",
+        "PASSWORD": "Password"
+      },
+      "ACTIONS": {
+        "SHOW_PASSWORD": "Display password",
+        "HIDE_PASSWORD": "Hide password"
+      },
+      "ERRORS": {
+        "USERNAME_INVALID": "The username is invalid.",
+        "PASSWORD_INVALID": "The password is invalid."
+      }
+    },
+    "BUTTONS": {
+      "LOGO": {
+        "ARIA": "Back to home page"
+      },
+      "MOBILE": {
+        "MENU": {
+          "ARIA": {
+            "OPEN": "Open menu",
+            "CLOSE": "Close menu"
+          }
+        }
+      },
+      "LOGIN": {
+        "LABEL": "Login",
+        "ARIA": "Button to open the login form"
+      },
+      "LOGOUT": {
+        "LABEL": "Logout",
+        "ARIA": "Button to logout of the application"
+      },
+      "CONTINUE": {
+        "LABEL": "Continue",
+        "ARIA": "Button to login"
+      },
+      "CANCEL": {
+        "LABEL": "Cancel",
+        "ARIA": "Button to cancel entry"
+      },
+      "CLOSE": {
+        "ARIA": "Close",
+        "TOOLTIP": "Close"
+      },
+      "BACKHOME": {
+        "LABEL": "Back to home",
+        "ARIA": "Back to home page"
+      },
+      "LANGUAGE_TOGGLE": {
+        "ARIA": "Switch language to English",
+        "TOOLTIP": "FR"
+      },
+      "SCROLL_TOP": {
+        "ARIA": "Go to the top of the page",
+        "TOOLTIP": "Top of page"
+      },
+      "UNMUTE": {
+        "ARIA": "Enable video sound"
+      }
+    },
+    "LOADER": {
+      "ARIA": "Page loading in progress"
+    }
+  }
+}

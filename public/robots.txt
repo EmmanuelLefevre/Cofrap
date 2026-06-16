@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /home
+Allow: /login
+
+# Sitemap
+Sitemap: https://www.cofrap/sitemap.xml
