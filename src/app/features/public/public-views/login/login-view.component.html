@@ -22,9 +22,11 @@
               [qrCode]="authService.currentPasswordQrCode()!"
               [rawValue]="authService.currentRawPassword()!"
               title="PAGES.AUTH.QR_VIEW.QR_TITLE"
-              (copied)="confirmPasswordNoted()" />
+              [showCheckbox]="true"
+              (confirmToggled)="isPasswordConfirmed.set($event)" />
             <button
               (click)="confirmPasswordNoted()"
+              [disabled]="!isPasswordConfirmed()"
               type="button">{{ 'UI.ACTIONS.CONFIRM_NOTED' | translate }}
             </button>
           }

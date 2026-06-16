@@ -16,7 +16,9 @@ export class QrCodeCardComponent {
 
   private readonly sanitizer = inject(DomSanitizer);
 
+  public readonly confirmToggled = output<boolean>();
   public readonly copied = output<string>();
+  public readonly showCheckbox = input<boolean>(false);
 
   qrCode = input.required<string>();
   rawValue = input.required<string>();
@@ -35,5 +37,10 @@ export class QrCodeCardComponent {
   onCopy(): void {
     navigator.clipboard.writeText(this.rawValue());
     this.copied.emit(this.rawValue());
+  }
+
+  onCheckboxChange(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.confirmToggled.emit(isChecked);
   }
 }

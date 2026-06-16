@@ -38,9 +38,10 @@ export class LoginViewComponent {
 
   public readonly authService = inject(AuthService);
 
+  readonly currentUsername = signal<string>('');
   readonly flowStep = signal<FlowStep>('INIT');
   readonly isLoading = signal(false);
-  readonly currentUsername = signal<string>('');
+  readonly isPasswordConfirmed = signal(false);
 
   readonly loginFields: FormFieldConfig[] = [
     {

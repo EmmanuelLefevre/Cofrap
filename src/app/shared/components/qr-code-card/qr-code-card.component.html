@@ -12,4 +12,13 @@
 			type="button">{{ 'UI.ACTIONS.COPY' | translate }}
     </button>
   </div>
+
+  @if (showCheckbox()) {
+    <div class="qr-card__confirm">
+      <label>
+        <input type="checkbox" (change)="onCheckboxChange($event)" />
+        <span>{{ 'UI.QR_CARD.CONFIRM_COPY' | translate }}</span>
+      </label>
+    </div>
+  }
 </div>
