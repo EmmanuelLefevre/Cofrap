@@ -23,12 +23,13 @@ export class QrCodeCardComponent {
   title = input.required<string>();
 
   get sanitizedQrCode(): SafeUrl {
-    // Ajout du préfixe si absent
-    const base64 = this.qrCode().startsWith('data:image')
-      ? this.qrCode()
-      : `data:image/png;base64,${this.qrCode()}`;
+    const value = this.qrCode();
 
-    return this.sanitizer.bypassSecurityTrustUrl(base64);
+    if (value.startsWith('http') || value.startsWith('data:image')) {
+      return this.sanitizer.bypassSecurityTrustUrl(value);
+    }
+
+    return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${value}`);
   }
 
   onCopy(): void {

@@ -3,10 +3,10 @@ import { AccountCreationResponse, MfaCreationResponse } from '@core/_models/auth
 export const MOCK_ACCOUNT_RESPONSE: AccountCreationResponse = {
   username: 'adminTest',
   passwordRaw: 'P@ssw0rd24CharsLong#12345',
-  passwordQrCode: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABQklEQVR4nO2YwQ3EMAwDffdfuhtkllv0E1TAq3R1eZISyTbnXN/j5/yH/d0/x/8bIMT2zR0nEGI7gRDbCYTYTiDEdgIhtrtC5F7f28T/Zt2tZ1yX00E1t1wIu/W7zO9u3U0E2E72EwixnUCI7QRCbCcQYrvfQkSnV9/bQW6R9x3H6c7m67k67k5X1L31Z9+R3n8B28l+AiG2Ewif2z+5t0m2k38jEGI7gRDbCYTYbq8Q0em28/R7X3M4mS8nO/B03yK305/7v4DtZD+BENsJhNhOIMR2AiG2Oy1E2E42EwixnUCI7QRCbCcQYjvdRj7vLXL+eZ7uA1S3u4B2sncC20k5gRDbCYTYTiDEdtcI9n2H4Xg2HqR6B1v0Nnf1d+tOIMR2AiG2EwixnUCI7QRCbCcQYjuBENsJhNhOIMR2AiG2Ewix3RcZp9Gg6lEaEAAAAABJRU5ErkJggg=='
+  passwordQrCode: 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=P@ssw0rd24CharsLong%2312345'
 };
 
 export const MOCK_MFA_RESPONSE: MfaCreationResponse = {
   username: 'adminTest',
-  mfaQrCode: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAAAsT9KqAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFnElEQVR4nO3dTW8cRxbH8T0RkXhG8q0tYc8E5E0B25q9B5h1D+B1P8A1r/D/cO8mB261o242JAhS0r7Z2d6f+sZtE0d21D5oR/29P+cQxPZ0h8xM9dXdV1B8AAAAA3iX/39c9f7v/Z+/f1n+f+/v79P9x/uP9x8+7Zz713n66H/r9rX89vQ8v7m8f1t066K8yN/84518/t2/1m//n+r9/f1t9v/88fD7+vP9//5rV/7T28/4/6/Z9n54t/n3d/338+7v7O/5r5/395rV8nL778b4r+r6n73f8/O1u2fG8K7n7/Xj+1/u/jG/c+7u69796e67/n/8n94tWb+l/78a9u7475v6f5N/R/23w/Vd797+Z+v0d62+9H951Oq7X48v6X5/83816n/n/979lOq7rP55/35tW39Vd//v1/37tWn+Vd39e/5s/u3G9/7/mP2/k/H38z0/1v0f6N/z39//d3L+L1H4t+n/5d+99q81P9+P9289/vX1+331w/f/fC6/n3+6/3r+v/b/3v2/34//n83/6+f/Z/13+1+eP92/1vV/0/39z/3f74/54/Pj/J/1t9s/7/+7f43/339Tf1T/r1eP6n62//P32z9z82/v/43+tT8p/2W345eBwAAAAA84Z/O/t+s604AAAAASUVORK5CYII='
+  mfaQrCode: 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=MFA_SECRET_TEST_123'
 };
