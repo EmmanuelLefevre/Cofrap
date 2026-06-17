@@ -9,11 +9,16 @@
   </div>
 
   <div class="qr-card__data">
-    <code>{{ rawValue() }}</code>
-    <main-button
-      label="UI.ACTIONS.COPY"
-      variant="primary"
-      (clicked)="onCopy()" />
+    @if (showRawValue()) {
+      <code>{{ rawValue() }}</code>
+    }
+
+    @if (showCopyButton()) {
+      <main-button
+        label="UI.ACTIONS.COPY"
+        variant="primary"
+        (clicked)="onCopy()" />
+    }
   </div>
 
   @if (showCheckbox()) {

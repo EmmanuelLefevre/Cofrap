@@ -21,7 +21,7 @@
         @switch (flowStep()) {
           @case ('INIT') {
             <dynamic-form
-              [fields]="loginFields"
+              [fields]="usernameField"
               [isLoading]="isLoading()"
               (submitted)="onFormSubmit($event)"
               (cancelled)="onCancel()" />
@@ -43,7 +43,19 @@
               [qrCode]="authService.currentMfaQrCode()!"
               [rawValue]="'MFA_SECRET_HIDDEN'"
               title="PAGES.AUTH.QR_VIEW.MFA_TITLE"
-              (copied)="finalize()" />
+              (copied)="finalize()"
+              [showRawValue]="false"
+              [showCopyButton]="false" />
+
+            <div class="login__instruction login__instruction--centered">
+              {{ 'PAGES.AUTH.LOGIN.STEP3_INSTRUCTION' | translate }}
+            </div>
+
+            <dynamic-form
+              [fields]="totpField"
+              [isLoading]="isLoading()"
+              (submitted)="onOtpSubmit($event)"
+              (cancelled)="onCancel()" />
           }
         }
       </div>

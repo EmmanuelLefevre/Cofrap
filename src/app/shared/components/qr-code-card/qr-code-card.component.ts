@@ -24,7 +24,10 @@ export class QrCodeCardComponent {
 
   public readonly confirmToggled = output<boolean>();
   public readonly copied = output<string>();
+
   public readonly showCheckbox = input<boolean>(false);
+  public readonly showRawValue = input<boolean>(true);
+  public readonly showCopyButton = input<boolean>(true);
 
   qrCode = input.required<string>();
   rawValue = input.required<string>();

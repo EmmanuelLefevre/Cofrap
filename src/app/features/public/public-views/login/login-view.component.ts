@@ -12,8 +12,13 @@ import { CloseButtonComponent } from '@app/shared/components/close-button/close-
 import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
 import { MainButtonComponent } from '@app/shared/shared';
 import { QrCodeCardComponent } from '@shared/components/qr-code-card/qr-code-card.component';
+import { Validators } from '@angular/forms';
 
 const HTTP_STATUS_CONFLICT = 409;
+const HTTP_STATUS_UNAUTHORIZED = 401;
+
+const MAX_LENGTH = 6;
+const MIN_LENGTH = 6;
 
 type FlowStep = 'INIT' | 'PWD_DISPLAY' | 'MFA_DISPLAY';
 
@@ -45,13 +50,24 @@ export class LoginViewComponent {
   readonly isLoading = signal(false);
   readonly isPasswordConfirmed = signal(false);
 
-  readonly loginFields: FormFieldConfig[] = [
+  readonly usernameField: FormFieldConfig[] = [
     {
       name: 'username',
       label: 'UI.FORMS.LABELS.USERNAME',
       type: 'text',
       placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME',
       initialValue: ''
+    }
+  ];
+
+  readonly totpField: FormFieldConfig[] = [
+    {
+      name: 'otpCode',
+      label: 'UI.FORMS.LABELS.OTP_CODE',
+      type: 'text',
+      placeholder: 'UI.FORMS.PLACEHOLDERS.OTP_CODE',
+      initialValue: '',
+      validators: [Validators.required, Validators.minLength(MIN_LENGTH), Validators.maxLength(MAX_LENGTH)]
     }
   ];
 
@@ -83,6 +99,29 @@ export class LoginViewComponent {
       next: () => {
         this.isLoading.set(false);
         this.flowStep.set('MFA_DISPLAY');
+      }
+    });
+  }
+
+  onOtpSubmit(data: DynamicFormRawValue): void {
+    this.isLoading.set(true);
+    const username = this.currentUsername();
+    const otpCode = data['otpCode'] as string;
+
+    this.authService.verifyMfa(username, otpCode).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.snackbar.showNotification('UI.SNACKBAR.AUTH.MFA_VERIFY_SUCCESS', 'created');
+        this.router.navigate(['/account']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false);
+        if (err.status === HTTP_STATUS_UNAUTHORIZED) {
+          this.snackbar.showNotification('UI.SNACKBAR.AUTH.OTP_INVALID', 'red-alert');
+        }
+        else {
+          this.snackbar.showNotification('ERROR', 'red-alert');
+        }
       }
     });
   }

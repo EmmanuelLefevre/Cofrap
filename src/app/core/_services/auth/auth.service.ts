@@ -2,8 +2,8 @@
 
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { ENVIRONMENT } from '@env/environment';
@@ -69,6 +69,21 @@ export class AuthService {
       delay(800),
       tap((res) => this.currentMfaQrCode.set(res.mfaQrCode))
     );
+  }
+
+  // verifyMfa(username: string, otpCode: string): Observable<boolean> {
+  //   return this.http.post<boolean>(`${this.apiGatewayUrl}/verify-2fa`, { username, otpCode });
+  // }
+
+  verifyMfa(username: string, otpCode: string): Observable<boolean> {
+    if (otpCode === '123456') {
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      return of(true).pipe(delay(500));
+    }
+    else {
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      return throwError(() => new HttpErrorResponse({ status: 401, statusText: 'Unauthorized' })).pipe(delay(500));
+    }
   }
 
   login(credentials: LoginCredentials): Observable<User> {

@@ -120,7 +120,8 @@
       "LOGIN": {
         "STEP1": "Create your account !",
         "STEP2": "Save your password !",
-        "STEP3": "Enter your token !"
+        "STEP3": "Enter your token !",
+        "STEP3_INSTRUCTION": "Scan the QR code with your authentication app and then enter your 6-digit code."
       },
       "QR_VIEW": {
         "QR_TITLE": "Qr Code",
