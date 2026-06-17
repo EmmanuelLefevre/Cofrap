@@ -5,8 +5,17 @@
         <close-button />
 
         <div class="login__header">
-          <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.TITLE' | translate }}</h1>
-          <h2 class="login__subtitle">{{ 'PAGES.AUTH.LOGIN.SUBTITLE' | translate }}</h2>
+          @switch (flowStep()) {
+            @case ('INIT') {
+              <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.STEP1' | translate }}</h1>
+            }
+            @case ('PWD_DISPLAY') {
+              <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.STEP2' | translate }}</h1>
+            }
+            @case ('MFA_DISPLAY') {
+              <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.STEP3' | translate }}</h1>
+            }
+          }
         </div>
 
         @switch (flowStep()) {
@@ -24,11 +33,10 @@
               title="PAGES.AUTH.QR_VIEW.QR_TITLE"
               [showCheckbox]="true"
               (confirmToggled)="isPasswordConfirmed.set($event)" />
-            <button
-              (click)="confirmPasswordNoted()"
-              [disabled]="!isPasswordConfirmed()"
-              type="button">{{ 'UI.ACTIONS.CONFIRM_NOTED' | translate }}
-            </button>
+            <main-button
+              label="UI.ACTIONS.CONFIRM_NOTED"
+              [isDisabled]="!isPasswordConfirmed()"
+              (clicked)="confirmPasswordNoted()" />
           }
           @case ('MFA_DISPLAY') {
             <qr-code-card

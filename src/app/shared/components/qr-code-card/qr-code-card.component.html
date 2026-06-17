@@ -1,22 +1,27 @@
 <div class="qr-card">
-  <h3 class="qr-card__title">{{ title() | translate }}</h3>
+  <h2 class="qr-card__title">{{ title() | translate }}</h2>
 
   <div class="qr-card__image-container">
-    <img [src]="sanitizedQrCode" [alt]="'UI.QR_CARD.ALT_TEXT' | translate" />
+    <img
+      [src]="sanitizedQrCode"
+      alt=""
+      [alt]="'UI.QR_CARD.ALT_TEXT' | translate" />
   </div>
 
   <div class="qr-card__data">
     <code>{{ rawValue() }}</code>
-    <button
-			(click)="onCopy()"
-			type="button">{{ 'UI.ACTIONS.COPY' | translate }}
-    </button>
+    <main-button
+      label="UI.ACTIONS.COPY"
+      variant="primary"
+      (clicked)="onCopy()" />
   </div>
 
   @if (showCheckbox()) {
     <div class="qr-card__confirm">
       <label>
-        <input type="checkbox" (change)="onCheckboxChange($event)" />
+        <input
+          type="checkbox"
+          (change)="onCheckboxChange($event)" />
         <span>{{ 'UI.QR_CARD.CONFIRM_COPY' | translate }}</span>
       </label>
     </div>

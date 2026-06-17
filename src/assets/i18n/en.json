@@ -118,9 +118,9 @@
     },
     "AUTH": {
       "LOGIN": {
-        "TITLE": "Great to see you again !",
-        "SUBTITLE": "Login to access your private area.",
-        "CTA_SWITCH": "Already have an account ? Login..."
+        "STEP1": "Create your account !",
+        "STEP2": "Save your password !",
+        "STEP3": "Enter your token !"
       },
       "QR_VIEW": {
         "QR_TITLE": "Qr Code",
@@ -194,7 +194,12 @@
   },
   "UI": {
     "QR_CARD": {
-      "ALT_TEXT": "QR Code generated"
+      "ALT_TEXT": "QR Code generated",
+      "CONFIRM_COPY": "Confirm copy",
+      "COPY": {
+        "SUCCESS": "The password has been copied to the clipboard.",
+        "ERROR": "The password could not be copied to the clipboard. Please try again."
+      }
     },
     "SNACKBAR": {
       "AUTH": {
@@ -212,8 +217,8 @@
       }
     },
     "ACTIONS": {
-      "COPY": "Copy",
-      "CONFIRM_NOTED": "I have noted down my password.",
+      "COPY": "Copy to clipboard",
+      "CONFIRM_NOTED": "Continue",
       "CONTINUE": "Continue"
     },
     "FORMS": {
@@ -283,7 +288,8 @@
       }
     },
     "LOADER": {
-      "ARIA": "Page loading in progress"
+      "ARIA": "Page loading in progress",
+      "LOADING": "Loading..."
     }
   }
 }

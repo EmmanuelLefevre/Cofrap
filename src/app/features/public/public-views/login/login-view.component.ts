@@ -10,6 +10,7 @@ import { SnackbarService } from '@core/_services/snackbar/snackbar.service';
 import { BackgroundComponent } from '@shared/components/background/background.component';
 import { CloseButtonComponent } from '@app/shared/components/close-button/close-button.component';
 import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
+import { MainButtonComponent } from '@app/shared/shared';
 import { QrCodeCardComponent } from '@shared/components/qr-code-card/qr-code-card.component';
 
 const HTTP_STATUS_CONFLICT = 409;
@@ -22,6 +23,7 @@ type FlowStep = 'INIT' | 'PWD_DISPLAY' | 'MFA_DISPLAY';
     BackgroundComponent,
     CloseButtonComponent,
     DynamicFormComponent,
+    MainButtonComponent,
     TranslateModule,
     QrCodeCardComponent
   ],

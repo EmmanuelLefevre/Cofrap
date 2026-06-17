@@ -175,26 +175,10 @@ pnpm install --frozen-lockfile
 pnpm start
 ```
 
-- Via Package
-
-```bash
-
-```
-
-### Configuration de l'environnement
-
-Créer un fichier `.env` à la racine de l'application et renseigner les clés de configuration (**API endpoint** et **Supabase**) :
-
-```bash
-NG_APP_BACKEND_API_URL=https://monbackend/api
-NG_APP_SUPABASE_URL=votre_url_supabase
-NG_APP_SUPABASE_ANON_KEY=votre_cle_anonyme_supabase
-```
-
 ### Installation de la CLI Angular en global
 
 ```bash
-pnpm add -g @angular/cli@21.2.1
+pnpm add -g @angular/cli@21.2.2
 ```
 
 ### Installer une librairie

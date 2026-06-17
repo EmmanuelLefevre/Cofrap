@@ -25,6 +25,7 @@ export class SnackbarService {
     };
 
     switch (messageType) {
+      case 'created':
       case 'logIn-logOut':
         config.duration = 7000;
         config.verticalPosition = 'top';
@@ -40,7 +41,6 @@ export class SnackbarService {
         config.politeness = 'assertive';
         break;
 
-      case 'created':
       case 'modified':
       case 'deleted':
       default:

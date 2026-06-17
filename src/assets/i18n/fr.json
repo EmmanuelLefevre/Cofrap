@@ -118,9 +118,9 @@
     },
     "AUTH": {
       "LOGIN": {
-        "TITLE": "Ravi de vous revoir !",
-        "SUBTITLE": "Connectez-vous pour accéder à votre espace privé.",
-        "CTA_SWITCH": "Déjà un compte ? Connectez-vous..."
+        "STEP1": "Créer votre compte !",
+        "STEP2": "Enregistrer votre mot de passe !",
+        "STEP3": "Saisissez votre token !"
       },
       "QR_VIEW": {
         "QR_TITLE": "Qr Code",
@@ -194,7 +194,12 @@
   },
   "UI": {
     "QR_CARD": {
-      "ALT_TEXT": "QR Code généré"
+      "ALT_TEXT": "QR Code généré",
+      "CONFIRM_COPY": "Confirmer la copie",
+      "COPY": {
+        "SUCCESS": "Le mot de passe a été copié dans le presse-papier.",
+        "ERROR": "Le mot de passe n'a pas pu être copié dans le presse-papier. Veuillez réessayer."
+      }
     },
     "SNACKBAR": {
       "AUTH": {
@@ -212,8 +217,8 @@
       }
     },
     "ACTIONS": {
-      "COPY": "Copier",
-      "CONFIRM_NOTED": "J'ai bien noté mon mot de passe",
+      "COPY": "Copier dans le presse-papier",
+      "CONFIRM_NOTED": "Continuer",
       "CONTINUE": "Continuer"
     },
     "FORMS": {
@@ -283,7 +288,8 @@
       }
     },
     "LOADER": {
-      "ARIA": "Chargement de la page en cours"
+      "ARIA": "Chargement de la page en cours",
+      "LOADING": "Chargement..."
     }
   }
 }

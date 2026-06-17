@@ -2,9 +2,14 @@ import { ChangeDetectionStrategy, Component, inject, input, output } from '@angu
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SnackbarService } from '@app/core/_services/snackbar/snackbar.service';
+
+import { MainButtonComponent } from '@app/shared/shared';
+
 @Component({
   selector: 'qr-code-card',
   imports: [
+    MainButtonComponent,
     TranslateModule
   ],
   templateUrl: './qr-code-card.component.html',
@@ -15,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class QrCodeCardComponent {
 
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly snackbar = inject(SnackbarService);
 
   public readonly confirmToggled = output<boolean>();
   public readonly copied = output<string>();
@@ -34,9 +40,16 @@ export class QrCodeCardComponent {
     return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${value}`);
   }
 
-  onCopy(): void {
-    navigator.clipboard.writeText(this.rawValue());
-    this.copied.emit(this.rawValue());
+  async onCopy(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.rawValue());
+      this.snackbar.showNotification('UI.QR_CARD.COPY.SUCCESS', 'created');
+
+      this.copied.emit(this.rawValue());
+    }
+    catch {
+      this.snackbar.showNotification('UI.QR_CARD.COPY.ERROR', 'red-alert');
+    }
   }
 
   onCheckboxChange(event: Event): void {
