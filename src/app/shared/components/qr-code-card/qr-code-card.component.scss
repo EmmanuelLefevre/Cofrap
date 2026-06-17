@@ -7,16 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  padding: 0 20px 20px 20px;
-  background: white;
-
-  &__title {
-    font-family: var(--font-main);
-    font-size: var(--font-size-h2);
-    color: var(--primary-color);
-    line-height: 1.5;
-  }
+  padding: 0 20px 0 20px;
 
   &__image-container {
     display: flex;
@@ -31,12 +22,13 @@
   &__data {
     display: flex;
     flex-direction: column;
-    gap: 8px;
     align-items: center;
+    gap: 16px;
     width: 100%;
+    margin: 16px 0 16px 0;
 
     main-button {
-      font-size: 10px;
+      font-size: var(--font-size-bubble);
     }
   }
 
@@ -49,22 +41,31 @@
       gap: 0.6rem;
       cursor: pointer;
 
+      &:hover {
+        span {
+          color: var(--primary-color);
+        }
+      }
+
       input[type='checkbox'] {
-        appearance: none;
-        -webkit-appearance: none;
         margin: 0;
         width: 1.1rem;
         height: 1.1rem;
+        border: 2px solid var(--danger-color);
+        border-radius: 3px;
+        background-color: var(--white-color);
+        appearance: none;
+        transition: all 0.2s ease-in-out;
         cursor: pointer;
 
-        border: 2px solid #a0a0a0;
-        border-radius: 3px;
-        background-color: white;
-
         &:hover {
-          border-color: #a0a0a0;
-          background-color: white;
+          border-color: var(--primary-color);
+          background-color: var(--white-color);
           box-shadow: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='oklch%280.6721%200.1606%20156.35%29' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+          background-size: 75%;
+          background-position: center;
+          background-repeat: no-repeat;
         }
 
         &:checked {
@@ -77,25 +78,33 @@
         }
 
         &:checked:hover {
-          background-color: var(--primary-color);
           border-color: var(--primary-color);
+          background-color: var(--primary-color);
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+
+        &:checked + span {
+          color: var(--primary-color);
         }
       }
 
-      // span {
-      //   font-size: 0.95rem;
-      //   color: $text-dark;
-      // }
+      span {
+        font-size: var(--font-size-bubble);
+        color: var(--text-danger-color);
+        transition: color 0.2s ease-in-out;
+      }
     }
   }
 
   code {
-    background: #f4f4f4;
+    background: var(--grey-color-light);
     padding: 8px 16px;
     border-radius: 4px;
     font-family: monospace;
     word-break: break-all;
     width: auto;
     text-align: center;
+    user-select: all;
+    cursor: text;
   }
 }

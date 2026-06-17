@@ -17,8 +17,11 @@ import { Validators } from '@angular/forms';
 const HTTP_STATUS_CONFLICT = 409;
 const HTTP_STATUS_UNAUTHORIZED = 401;
 
-const MAX_LENGTH = 6;
-const MIN_LENGTH = 6;
+const MIN_TOTP_LENGTH = 6;
+const MAX_TOTP_LENGTH = 6;
+
+const MIN_USERNAME_LENGTH = 3;
+const MAX_USERNAME_LENGTH = 15;
 
 type FlowStep = 'INIT' | 'PWD_DISPLAY' | 'MFA_DISPLAY';
 
@@ -56,22 +59,40 @@ export class LoginViewComponent {
       label: 'UI.FORMS.LABELS.USERNAME',
       type: 'text',
       placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME',
-      initialValue: ''
+      initialValue: '',
+      customErrorKey: 'UI.FORMS.ERRORS.USERNAME_INVALID',
+      validators: [
+        Validators.required,
+        Validators.minLength(MIN_USERNAME_LENGTH),
+        Validators.maxLength(MAX_USERNAME_LENGTH)
+      ],
+      behaviors: {
+        titleCase: true,
+        autofocus: true
+      }
     }
   ];
 
   readonly totpField: FormFieldConfig[] = [
     {
-      name: 'otpCode',
-      label: 'UI.FORMS.LABELS.OTP_CODE',
+      name: 'totpCode',
+      label: 'UI.FORMS.LABELS.TOTP_CODE',
       type: 'text',
-      placeholder: 'UI.FORMS.PLACEHOLDERS.OTP_CODE',
+      placeholder: 'UI.FORMS.PLACEHOLDERS.TOTP_CODE',
       initialValue: '',
-      validators: [Validators.required, Validators.minLength(MIN_LENGTH), Validators.maxLength(MAX_LENGTH)]
+      customErrorKey: 'UI.FORMS.ERRORS.TOTP_INVALID',
+      validators: [
+        Validators.required,
+        Validators.minLength(MIN_TOTP_LENGTH),
+        Validators.maxLength(MAX_TOTP_LENGTH)
+      ],
+      behaviors: {
+        autofocus: true
+      }
     }
   ];
 
-  onFormSubmit(data: DynamicFormRawValue): void {
+  onUsernameSubmit(data: DynamicFormRawValue): void {
     this.isLoading.set(true);
     const username = data['username'] as string;
     this.currentUsername.set(username);
@@ -103,12 +124,12 @@ export class LoginViewComponent {
     });
   }
 
-  onOtpSubmit(data: DynamicFormRawValue): void {
+  onTotpSubmit(data: DynamicFormRawValue): void {
     this.isLoading.set(true);
     const username = this.currentUsername();
-    const otpCode = data['otpCode'] as string;
+    const totpCode = data['totpCode'] as string;
 
-    this.authService.verifyMfa(username, otpCode).subscribe({
+    this.authService.verifyMfa(username, totpCode).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.snackbar.showNotification('UI.SNACKBAR.AUTH.MFA_VERIFY_SUCCESS', 'created');
@@ -130,6 +151,7 @@ export class LoginViewComponent {
     this.authService.currentPasswordQrCode.set(null);
     this.authService.currentRawPassword.set(null);
     this.authService.currentMfaQrCode.set(null);
+    this.isPasswordConfirmed.set(false);
     this.dynamicForm()?.resetForm();
     this.flowStep.set('INIT');
   }

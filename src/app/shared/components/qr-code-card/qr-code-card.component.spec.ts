@@ -6,11 +6,10 @@ describe('QrCodeCardComponent', () => {
   let component: QrCodeCardComponent;
   let fixture: ComponentFixture<QrCodeCardComponent>;
 
-  beforeEach(async () => {
+  beforeEach(async() => {
     await TestBed.configureTestingModule({
       imports: [QrCodeCardComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(QrCodeCardComponent);
     component = fixture.componentInstance;

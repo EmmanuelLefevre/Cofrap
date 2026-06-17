@@ -119,13 +119,9 @@
     "AUTH": {
       "LOGIN": {
         "STEP1": "Créer votre compte !",
-        "STEP2": "Enregistrer votre mot de passe !",
-        "STEP3": "Saisissez votre token !",
-        "STEP3_INSTRUCTION": "Scannez le QR Code avec votre application d'authentification puis saisissez votre code à 6 chiffres."
-      },
-      "QR_VIEW": {
-        "QR_TITLE": "Qr Code",
-        "MFA_TITLE": "Configuration 2FA"
+        "STEP2": "Sauvegardez votre mot de passe !",
+        "STEP3": "Sécurisez votre compte !",
+        "STEP3_INSTRUCTION": "Ouvrez votre application (Google Authenticator, Microsoft...), scannez le QR Code ci-dessus, puis saisissez le code temporaire généré."
       }
     },
     "ERROR": {
@@ -225,11 +221,13 @@
     "FORMS": {
       "LABELS": {
         "USERNAME": "Nom d'utilisateur",
-        "PASSWORD": "Mot de passe"
+        "PASSWORD": "Mot de passe",
+        "TOTP_CODE": "Code de sécurité"
       },
       "PLACEHOLDERS": {
         "USERNAME": "Nom d'utilisateur",
-        "PASSWORD": "Mot de passe"
+        "PASSWORD": "Mot de passe",
+        "TOTP_CODE": "Ex : 123456"
       },
       "ACTIONS": {
         "SHOW_PASSWORD": "Afficher le mot de passe",
@@ -237,7 +235,9 @@
       },
       "ERRORS": {
         "USERNAME_INVALID": "Le nom d'utilisateur n'est pas valide.",
-        "PASSWORD_INVALID": "Le mot de passe n'est pas valide."
+        "PASSWORD_INVALID": "Le mot de passe n'est pas valide.",
+        "TOTP_INVALID": "Le code est invalide.",
+        "TEXT_INVALID": "La saisie est invalide."
       }
     },
     "BUTTONS": {

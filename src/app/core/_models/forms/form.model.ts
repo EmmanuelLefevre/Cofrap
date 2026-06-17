@@ -14,6 +14,7 @@ export type DynamicFormRawValue = Record<string, FormValue>;
 export interface FormFieldBehaviors {
   hasPasswordToggle?: boolean;
   autofocus?: boolean;
+  titleCase?: boolean;
 }
 
 export interface FormFieldConfig {
@@ -25,4 +26,6 @@ export interface FormFieldConfig {
   className?: string;
   validators?: ValidatorFn[];
   behaviors?: FormFieldBehaviors;
+  customErrorKey?: string;
+  autocomplete?: string;
 }

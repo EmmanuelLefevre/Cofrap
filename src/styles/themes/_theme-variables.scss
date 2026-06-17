@@ -6,6 +6,7 @@
   --black-color-light: oklch(0.4585 0 0);
   --deep-black-color: oklch(0 0 0);
   --grey-color: oklch(0.5979 0 0);
+  --grey-color-light: oklch(0.9672 0 0);
   --white-color: oklch(1 0 0);
 
   --danger-color: oklch(0.6311 0.2545 28.85);
@@ -41,6 +42,8 @@
   --text-secondary-color-light: var(--secondary-light);
 
   --text-danger-color: var(--danger-color);
+  --text-danger-color-2: var(--danger-color-2);
+  --text-error-color: var(--error-color);
   --text-nav-color: var(--black-color-light);
   --text-quote-color: var(--grey-color);
   --text-typewriter-color: var(--typewriter-grey-color);

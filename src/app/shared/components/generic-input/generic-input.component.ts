@@ -6,10 +6,15 @@ import { merge, startWith, switchMap } from 'rxjs';
 
 import { FormFieldConfig } from '@core/_models/forms/form.model';
 
+import { InputFocusDirective } from '@shared/_directives/input-focus/input-focus.directive';
+import { InputTitleCaseDirective } from '@shared/_directives/input-title-case/input-title-case.directive';
+
 @Component({
   selector: 'generic-input',
   imports: [
     ReactiveFormsModule,
+    InputFocusDirective,
+    InputTitleCaseDirective,
     TranslateModule
   ],
   templateUrl: './generic-input.component.html',
@@ -20,7 +25,10 @@ import { FormFieldConfig } from '@core/_models/forms/form.model';
 export class GenericInputComponent {
 
   protected readonly showPassword = signal(false);
+  protected readonly isFocused = signal(false);
   protected readonly isPassword = computed(() => this.type() === 'password');
+
+  readonly autocomplete = input<string>('off');
 
   readonly id = input.required<string>();
   readonly label = input.required<string>();
@@ -67,6 +75,6 @@ export class GenericInputComponent {
     this._stateTrigger();
     const CTRL = this.control();
 
-    return CTRL.invalid && (CTRL.dirty || CTRL.touched);
+    return CTRL.invalid && (CTRL.dirty || CTRL.touched) && !this.isFocused();
   });
 }

@@ -14,6 +14,11 @@
       [type]="inputType()"
       [formControl]="control()"
       [placeholder]="placeholder() | translate"
+      (focus)="isFocused.set(true)"
+      (blur)="isFocused.set(false)"
+      [inputFocus]="behaviors()?.autofocus"
+      [inputTitleCase]="behaviors()?.titleCase"
+      [autocomplete]="autocomplete()"
       class="c-field__input" />
 
     @if (isPassword() && behaviors()?.hasPasswordToggle) {
@@ -29,9 +34,11 @@
     }
   </div>
 
-  @if (hasError()) {
-    <div class="c-field__error">
-      <span>{{ errorKey() | translate }}</span>
+  <div class="c-field__error">
+      @if (hasError()) {
+      <span>
+        <i class="fa-solid fa-circle-exclamation"></i> {{ errorKey() | translate }}
+      </span>
+    }
     </div>
-  }
 </div>

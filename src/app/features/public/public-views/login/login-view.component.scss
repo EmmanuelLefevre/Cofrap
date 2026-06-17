@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding: 2rem;
+  padding: 4rem 2rem;
 
   &__wrapper {
     width: 100%;
@@ -36,8 +36,35 @@
     margin-bottom: 30px;
   }
 
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+
+    main-button {
+      flex: 1;
+      width: 100%;
+    }
+  }
+
   &__title {
     font-size: var(--font-size-h1-form);
     margin-bottom: 10px;
+  }
+
+  &__instruction {
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--text-secondary-color);
+    margin-bottom: 16px;
+
+    &--centered {
+      text-align: center;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }

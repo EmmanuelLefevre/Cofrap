@@ -1,5 +1,5 @@
 import { NgControl } from '@angular/forms';
-import { Directive, ElementRef, EventEmitter, HostListener, inject, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, inject, input, Output } from '@angular/core';
 
 const FIRST_CHAR_INDEX = 0;
 const NEXT_CHAR_OFFSET = 1;
@@ -15,22 +15,35 @@ export class InputTitleCaseDirective {
   private readonly el = inject(ElementRef);
   private readonly control = inject(NgControl);
 
+  readonly inputTitleCase = input<boolean | undefined>(true);
+
   @HostListener('input') onInput(): void {
+    if (this.inputTitleCase() === false) {
+      return;
+    }
+
     const VALUE = this.control.value;
 
     if (VALUE) {
-      const TRANSFORMED_TEXT = this.inputTitleCase(VALUE);
+      const start = this.el.nativeElement.selectionStart;
+      const end = this.el.nativeElement.selectionEnd;
 
-      // Vue update (DOM)
-      this.el.nativeElement.value = TRANSFORMED_TEXT;
+      const TRANSFORMED_TEXT = this.transformTitleCase(VALUE);
 
-      // Model update (Angular Forms)
-      this.ngModelChange.emit(TRANSFORMED_TEXT);
-      this.control.control?.setValue(TRANSFORMED_TEXT, { emitEvent: false });
+      if (VALUE !== TRANSFORMED_TEXT) {
+        // Vue update (DOM)
+        this.el.nativeElement.value = TRANSFORMED_TEXT;
+
+        // Model update (Angular Forms)
+        this.ngModelChange.emit(TRANSFORMED_TEXT);
+        this.control.control?.setValue(TRANSFORMED_TEXT, { emitEvent: false });
+
+        this.el.nativeElement.setSelectionRange(start, end);
+      }
     }
   }
 
-  inputTitleCase(text: string): string {
+  transformTitleCase(text: string): string {
     if (!text) return '';
 
     return text

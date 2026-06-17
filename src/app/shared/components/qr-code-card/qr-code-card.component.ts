@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -22,6 +22,8 @@ export class QrCodeCardComponent {
   private readonly sanitizer = inject(DomSanitizer);
   private readonly snackbar = inject(SnackbarService);
 
+  protected readonly isChecked = signal(false);
+
   public readonly confirmToggled = output<boolean>();
   public readonly copied = output<string>();
 
@@ -31,7 +33,6 @@ export class QrCodeCardComponent {
 
   qrCode = input.required<string>();
   rawValue = input.required<string>();
-  title = input.required<string>();
 
   get sanitizedQrCode(): SafeUrl {
     const value = this.qrCode();
@@ -49,6 +50,11 @@ export class QrCodeCardComponent {
       this.snackbar.showNotification('UI.QR_CARD.COPY.SUCCESS', 'created');
 
       this.copied.emit(this.rawValue());
+
+      if (this.showCheckbox() && !this.isChecked()) {
+        this.isChecked.set(true);
+        this.confirmToggled.emit(true);
+      }
     }
     catch {
       this.snackbar.showNotification('UI.QR_CARD.COPY.ERROR', 'red-alert');
@@ -57,6 +63,7 @@ export class QrCodeCardComponent {
 
   onCheckboxChange(event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
+    this.isChecked.set(isChecked);
     this.confirmToggled.emit(isChecked);
   }
 }

@@ -373,3 +373,14 @@ $shake-intensity: 1%;
   0%   { transform: scale(1) rotate(0deg); opacity: 1; }
   100% { transform: scale(0) rotate(15deg); opacity: 0; filter: grayscale(1); }
 }
+
+/*------Head Shake------*/
+$shake-intensity: 1%;
+@keyframes headshake {
+  25% {
+    transform: translateX($shake-intensity);
+  }
+  75% {
+    transform: translateX($shake-intensity * -1);
+  }
+}

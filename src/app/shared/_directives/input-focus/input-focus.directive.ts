@@ -1,4 +1,4 @@
-import { Directive, ElementRef, afterNextRender, inject } from '@angular/core';
+import { Directive, ElementRef, afterNextRender, inject, input } from '@angular/core';
 
 @Directive({
   selector: '[inputFocus]'
@@ -8,9 +8,13 @@ export class InputFocusDirective {
 
   private readonly EL = inject(ElementRef);
 
+  readonly inputFocus = input<boolean | undefined>(false);
+
   constructor() {
     afterNextRender(() => {
-      this.executeFocus();
+      if (this.inputFocus()) {
+        this.executeFocus();
+      }
     });
   }
 

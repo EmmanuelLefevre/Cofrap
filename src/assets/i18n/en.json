@@ -120,12 +120,8 @@
       "LOGIN": {
         "STEP1": "Create your account !",
         "STEP2": "Save your password !",
-        "STEP3": "Enter your token !",
-        "STEP3_INSTRUCTION": "Scan the QR code with your authentication app and then enter your 6-digit code."
-      },
-      "QR_VIEW": {
-        "QR_TITLE": "Qr Code",
-        "MFA_TITLE": "2FA setup"
+        "STEP3": "Secure your account !",
+        "STEP3_INSTRUCTION": "Open your application (Google Authenticator, Microsoft...), scan the QR Code above, then enter the generated temporary code."
       }
     },
     "ERROR": {
@@ -225,11 +221,13 @@
     "FORMS": {
       "LABELS": {
         "USERNAME": "Username",
-        "PASSWORD": "Password"
+        "PASSWORD": "Password",
+        "TOTP_CODE": "Security code"
       },
       "PLACEHOLDERS": {
         "USERNAME": "Username",
-        "PASSWORD": "Password"
+        "PASSWORD": "Password",
+        "TOTP_CODE": "Ex : 123456"
       },
       "ACTIONS": {
         "SHOW_PASSWORD": "Display password",
@@ -237,7 +235,9 @@
       },
       "ERRORS": {
         "USERNAME_INVALID": "The username is invalid.",
-        "PASSWORD_INVALID": "The password is invalid."
+        "PASSWORD_INVALID": "The password is invalid.",
+        "TOTP_INVALID": "The code is invalid.",
+        "TEXT_INVALID": "The entry is invalid."
       }
     },
     "BUTTONS": {

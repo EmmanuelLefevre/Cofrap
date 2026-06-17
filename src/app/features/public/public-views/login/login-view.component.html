@@ -23,26 +23,32 @@
             <dynamic-form
               [fields]="usernameField"
               [isLoading]="isLoading()"
-              (submitted)="onFormSubmit($event)"
+              (submitted)="onUsernameSubmit($event)"
               (cancelled)="onCancel()" />
           }
           @case ('PWD_DISPLAY') {
             <qr-code-card
               [qrCode]="authService.currentPasswordQrCode()!"
               [rawValue]="authService.currentRawPassword()!"
-              title="PAGES.AUTH.QR_VIEW.QR_TITLE"
               [showCheckbox]="true"
               (confirmToggled)="isPasswordConfirmed.set($event)" />
-            <main-button
-              label="UI.ACTIONS.CONFIRM_NOTED"
-              [isDisabled]="!isPasswordConfirmed()"
-              (clicked)="confirmPasswordNoted()" />
+
+            <div class="login__actions">
+              <main-button
+                variant="ghost"
+                label="UI.BUTTONS.CANCEL.LABEL"
+                (clicked)="onCancel()" />
+
+              <main-button
+                label="UI.ACTIONS.CONFIRM_NOTED"
+                [isDisabled]="!isPasswordConfirmed()"
+                (clicked)="confirmPasswordNoted()" />
+            </div>
           }
           @case ('MFA_DISPLAY') {
             <qr-code-card
               [qrCode]="authService.currentMfaQrCode()!"
               [rawValue]="'MFA_SECRET_HIDDEN'"
-              title="PAGES.AUTH.QR_VIEW.MFA_TITLE"
               (copied)="finalize()"
               [showRawValue]="false"
               [showCopyButton]="false" />
@@ -54,7 +60,7 @@
             <dynamic-form
               [fields]="totpField"
               [isLoading]="isLoading()"
-              (submitted)="onOtpSubmit($event)"
+              (submitted)="onTotpSubmit($event)"
               (cancelled)="onCancel()" />
           }
         }

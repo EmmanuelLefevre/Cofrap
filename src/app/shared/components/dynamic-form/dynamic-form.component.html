@@ -11,7 +11,9 @@
         [placeholder]="field.placeholder || ''"
         [control]="getControl(field.name)"
         [behaviors]="field.behaviors"
-        [className]="field.className || ''" />
+        [className]="field.className || ''"
+        [customErrorKey]="field.customErrorKey || null"
+        [autocomplete]="field.autocomplete || 'off'" />
     }
   </div>
 
