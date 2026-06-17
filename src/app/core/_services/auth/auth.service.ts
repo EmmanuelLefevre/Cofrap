@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +15,7 @@ import { LoginCredentials, AccountCreationResponse, MfaCreationResponse } from '
 
 // Mocking imports
 import { of, delay } from 'rxjs';
-import { MOCK_ACCOUNT_RESPONSE } from '@app/core/_mocks/auth.mock';
+import { MOCK_ACCOUNT_RESPONSE, MOCK_MFA_RESPONSE } from '@app/core/_mocks/auth.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +45,6 @@ export class AuthService {
   //     );
   // }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   generateAccount(username: string): Observable<AccountCreationResponse> {
     return of(MOCK_ACCOUNT_RESPONSE).pipe(
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -55,11 +56,19 @@ export class AuthService {
     );
   }
 
+  // generateMfa(username: string): Observable<MfaCreationResponse> {
+  //   return this.http.post<MfaCreationResponse>(`${this.apiGatewayUrl}/generate-2fa`, { username })
+  //     .pipe(
+  //       tap((res) => this.currentMfaQrCode.set(res.mfaQrCode))
+  //     );
+  // }
+
   generateMfa(username: string): Observable<MfaCreationResponse> {
-    return this.http.post<MfaCreationResponse>(`${this.apiGatewayUrl}/generate-2fa`, { username })
-      .pipe(
-        tap((res) => this.currentMfaQrCode.set(res.mfaQrCode))
-      );
+    return of(MOCK_MFA_RESPONSE).pipe(
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      delay(800),
+      tap((res) => this.currentMfaQrCode.set(res.mfaQrCode))
+    );
   }
 
   login(credentials: LoginCredentials): Observable<User> {
