@@ -79,6 +79,15 @@ describe('App Routes', () => {
     expect(TestBed.inject(Router).url).toBe('/contact');
   });
 
+  it('should navigate to /create-account', async() => {
+    // --- ACT ---
+    const INSTANCE = await harness.navigateByUrl('/create-account');
+
+    // --- ASSERT ---
+    expect(INSTANCE).toBeTruthy();
+    expect(TestBed.inject(Router).url).toBe('/login');
+  });
+
   it('should navigate to /login', async() => {
     // --- ACT ---
     const INSTANCE = await harness.navigateByUrl('/login');
@@ -129,7 +138,7 @@ describe('App Routes', () => {
 
   describe('Private Route', () => {
 
-    it('should allow navigation to /private/account if authGuard returns true', async() => {
+    it('should allow navigation to /private/personal-space if authGuard returns true', async() => {
       // --- ARRANGE ---
       mockAuthGuard.mockReturnValue(true);
 
@@ -138,7 +147,7 @@ describe('App Routes', () => {
 
       // --- ASSERT ---
       expect(INSTANCE).toBeTruthy();
-      expect(router.url).toBe('/private/account');
+      expect(router.url).toBe('/private/personal-space');
     });
 
     it('should redirect to root (/) if authGuard rejects unauthenticated user', async() => {
@@ -180,6 +189,7 @@ describe('Route SEO Data Integrity', () => {
     // --- ARRANGE ---
     const expectedPublicSeo = [
       { path: 'home', titleKey: 'META.PAGES.HOME.TITLE', descriptionKey: 'META.PAGES.HOME.DESCRIPTION' },
+      { path: 'create-account', titleKey: 'META.PAGES.CREATE_ACCOUNT.TITLE', descriptionKey: 'META.PAGES.CREATE_ACCOUNT.DESCRIPTION' },
       { path: 'login', titleKey: 'META.PAGES.LOGIN.TITLE', descriptionKey: 'META.PAGES.LOGIN.DESCRIPTION' },
       { path: 'contact', titleKey: 'META.PAGES.CONTACT.TITLE', descriptionKey: 'META.PAGES.CONTACT.DESCRIPTION' }
     ];
@@ -202,7 +212,7 @@ describe('Route SEO Data Integrity', () => {
     const privateRoutes = privateLayoutRoute?.children || [];
 
     const expectedPrivateSeo = [
-      { path: 'account', titleKey: 'META.PAGES.PRIVATE.ACCOUNT.TITLE', descriptionKey: 'META.PAGES.PRIVATE.ACCOUNT.DESCRIPTION' }
+      { path: 'personal-space', titleKey: 'META.PAGES.PRIVATE.PERSONNAL_SPACE.TITLE', descriptionKey: 'META.PAGES.PRIVATE.PERSONNAL_SPACE.DESCRIPTION' }
     ];
 
     // --- ACT & ASSERT ---

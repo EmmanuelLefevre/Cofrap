@@ -15,14 +15,18 @@
         "TITLE": "Contact",
         "DESCRIPTION": "Website contact page"
       },
+      "CREATE_ACCOUNT": {
+        "TITLE": "Account Creation",
+        "DESCRIPTION": "Website account creation page"
+      },
       "LOGIN": {
         "TITLE": "Login",
         "DESCRIPTION": "Website login page"
       },
       "PRIVATE": {
-        "ACCOUNT": {
-          "TITLE": "Account",
-          "DESCRIPTION": "Webpage of your account."
+        "PERSONNAL_SPACE": {
+          "TITLE": "Personal Space",
+          "DESCRIPTION": "Webpage of your personal space."
         }
       },
       "ERROR": {
@@ -117,7 +121,7 @@
       }
     },
     "AUTH": {
-      "LOGIN": {
+      "CREATE_ACCOUNT": {
         "STEP1": "Create your account !",
         "STEP2": "Save your password !",
         "STEP3": "Secure your account !",
@@ -207,6 +211,7 @@
         "LOGOUT": {
           "SUCCESS": "Goodbye {{username}} !"
         },
+        "ACCOUNT_CREATED" : "Account successfully generated for {{username}}.",
         "PASSWORD_GEN_SUCCESS": "Password successfully generated for {{username}}.",
         "MFA_GEN_SUCCESS": "Secret 2FA successfully generated.",
         "ACCOUNT_EXISTS": "This username is already in use.",
@@ -291,6 +296,9 @@
     "LOADER": {
       "ARIA": "Page loading in progress",
       "LOADING": "Loading..."
+    },
+    "ERROR": {
+      "GENERAL_ERROR" : "An error has occurred. Please try again later."
     }
   }
 }

@@ -15,14 +15,18 @@
         "TITLE": "Contact",
         "DESCRIPTION": "Page de contact du site"
       },
+      "CREATE_ACCOUNT": {
+        "TITLE": "Création Compte",
+        "DESCRIPTION": "Page de création de compte du site"
+      },
       "LOGIN": {
         "TITLE": "Connexion",
         "DESCRIPTION": "Page de connexion du site"
       },
       "PRIVATE": {
-        "ACCOUNT": {
-          "TITLE": "Compte",
-          "DESCRIPTION": "Page de votre compte."
+        "PERSONNAL_SPACE": {
+          "TITLE": "Espace Personnel",
+          "DESCRIPTION": "Page de votre espace personnel."
         }
       },
       "ERROR": {
@@ -117,7 +121,7 @@
       }
     },
     "AUTH": {
-      "LOGIN": {
+      "CREATE_ACCOUNT": {
         "STEP1": "Créer votre compte !",
         "STEP2": "Sauvegardez votre mot de passe !",
         "STEP3": "Sécurisez votre compte !",
@@ -207,6 +211,7 @@
         "LOGOUT": {
           "SUCCESS": "Au revoir {{username}} !"
         },
+        "ACCOUNT_CREATED" : "Compte crée avec succès pour {{username}}.",
         "PASSWORD_GEN_SUCCESS": "Mot de passe généré avec succès pour {{username}}.",
         "MFA_GEN_SUCCESS": "Secret 2FA généré avec succès.",
         "ACCOUNT_EXISTS": "Ce nom d'utilisateur est déjà utilisé.",
@@ -291,6 +296,9 @@
     "LOADER": {
       "ARIA": "Chargement de la page en cours",
       "LOADING": "Chargement..."
+    },
+    "ERROR": {
+      "GENERAL_ERROR" : "Une erreur s'est produite. Veuillez réessayer plus tard."
     }
   }
 }

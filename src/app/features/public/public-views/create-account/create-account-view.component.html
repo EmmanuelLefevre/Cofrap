@@ -1,0 +1,72 @@
+<background>
+  <section class="create-account">
+    <div class="create-account__wrapper">
+      <div
+        class="create-account__container"
+        [class.is-flipping]="isFlipping()">
+        <close-button />
+
+        <div class="create-account__header">
+          @switch (flowStep()) {
+            @case ('INIT') {
+              <h1 class="create-account__title">{{ 'PAGES.AUTH.CREATE_ACCOUNT.STEP1' | translate }}</h1>
+            }
+            @case ('PWD_DISPLAY') {
+              <h1 class="create-account__title">{{ 'PAGES.AUTH.CREATE_ACCOUNT.STEP2' | translate }}</h1>
+            }
+            @case ('MFA_DISPLAY') {
+              <h1 class="create-account__title">{{ 'PAGES.AUTH.CREATE_ACCOUNT.STEP3' | translate }}</h1>
+            }
+          }
+        </div>
+
+        @switch (flowStep()) {
+          @case ('INIT') {
+            <dynamic-form
+              [fields]="usernameField"
+              [isLoading]="isLoading()"
+              (submitted)="onUsernameSubmit($event)"
+              (cancelled)="onCancel()" />
+          }
+          @case ('PWD_DISPLAY') {
+            <qr-code-card
+              [qrCode]="authService.currentPasswordQrCode()!"
+              [rawValue]="authService.currentRawPassword()!"
+              [showCheckbox]="true"
+              (confirmToggled)="isPasswordConfirmed.set($event)" />
+
+            <div class="create-account__actions">
+              <main-button
+                variant="ghost"
+                label="UI.BUTTONS.CANCEL.LABEL"
+                (clicked)="onCancel()" />
+
+              <main-button
+                label="UI.ACTIONS.CONFIRM_NOTED"
+                [isDisabled]="!isPasswordConfirmed()"
+                (clicked)="confirmPasswordNoted()" />
+            </div>
+          }
+          @case ('MFA_DISPLAY') {
+            <qr-code-card
+              [qrCode]="authService.currentMfaQrCode()!"
+              [rawValue]="'MFA_SECRET_HIDDEN'"
+              (copied)="finalize()"
+              [showRawValue]="false"
+              [showCopyButton]="false" />
+
+            <div class="create-account__instruction create-account__instruction--centered">
+              {{ 'PAGES.AUTH.CREATE_ACCOUNT.STEP3_INSTRUCTION' | translate }}
+            </div>
+
+            <dynamic-form
+              [fields]="totpField"
+              [isLoading]="isLoading()"
+              (submitted)="onTotpSubmit($event)"
+              (cancelled)="onCancel()" />
+          }
+        }
+      </div>
+    </div>
+  </section>
+</background>

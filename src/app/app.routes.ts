@@ -26,6 +26,15 @@ export const ROUTES: Routes = [
         }
       },
       {
+        path: 'create-account',
+        loadComponent: () => import(
+          '@features/public/public-views/create-account/create-account-view.component')
+          .then(m => m.CreateAccountViewComponent),
+        data: {
+          seo: { titleKey: 'META.PAGES.CREATE_ACCOUNT.TITLE', descriptionKey: 'META.PAGES.CREATE_ACCOUNT.DESCRIPTION' }
+        }
+      },
+      {
         path: 'login',
         loadComponent: () => import(
           '@features/public/public-views/login/login-view.component')
@@ -43,7 +52,7 @@ export const ROUTES: Routes = [
           seo: { titleKey: 'META.PAGES.CONTACT.TITLE', descriptionKey: 'META.PAGES.CONTACT.DESCRIPTION' }
         }
       },
-      // Add 'about', 'other views'...
+      // Add 'about', 'other public views'...
 
       // --- PRIVATE AREA ---
       {
@@ -55,18 +64,18 @@ export const ROUTES: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'account',
+            redirectTo: 'personal-space',
             pathMatch: 'full'
           },
           {
-            path: 'account',
+            path: 'personal-space',
             loadComponent: () => import(
-              '@features/private/private-views/account/account.component')
-              .then(m => m.AccountComponent),
+              '@features/private/private-views/personal-space/personal-space.component')
+              .then(m => m.PersonalSpaceComponent),
             data: {
               seo: {
-                titleKey: 'META.PAGES.PRIVATE.ACCOUNT.TITLE',
-                descriptionKey: 'META.PAGES.PRIVATE.ACCOUNT.DESCRIPTION',
+                titleKey: 'META.PAGES.PERSONNAL_SPACE.TITLE',
+                descriptionKey: 'META.PAGES.PERSONNAL_SPACE.DESCRIPTION',
                 robots: 'noindex, nofollow'
               }
             }

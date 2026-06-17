@@ -86,6 +86,18 @@ export class AuthService {
     }
   }
 
+  finalizeAccount(username: string): Observable<boolean> {
+    return of(true).pipe(
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      delay(800),
+      tap(() => {
+        // Optionnel : tu pourrais ici définir un utilisateur factice
+        // dans ton signal currentUser pour simuler la connexion
+        // this.currentUser.set({ username, id: '123' } as User);
+      })
+    );
+  }
+
   login(credentials: LoginCredentials): Observable<User> {
     return this.http.post<User>(`${this.apiGatewayUrl}/authenticate-user`, credentials)
       .pipe(

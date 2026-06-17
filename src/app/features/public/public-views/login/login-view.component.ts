@@ -1,167 +1,187 @@
-import { ChangeDetectionStrategy, Component, inject, signal, viewChild } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, viewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { DynamicFormRawValue, FormFieldConfig } from '@core/_models/forms/form.model';
+import { LoginCredentials } from '@core/_models/auth/auth.model';
+import { User as AppUser } from '@core/_models/user/user.model';
+
 import { AuthService } from '@core/_services/auth/auth.service';
 import { SnackbarService } from '@core/_services/snackbar/snackbar.service';
 
-import { BackgroundComponent } from '@shared/components/background/background.component';
-import { CloseButtonComponent } from '@app/shared/components/close-button/close-button.component';
+import { CloseButtonComponent } from '@shared/components/close-button/close-button.component';
 import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
-import { MainButtonComponent } from '@app/shared/shared';
-import { QrCodeCardComponent } from '@shared/components/qr-code-card/qr-code-card.component';
-import { Validators } from '@angular/forms';
 
-const HTTP_STATUS_CONFLICT = 409;
-const HTTP_STATUS_UNAUTHORIZED = 401;
+const FLIP_ANIMATION_DURATION_MS = 800;
+const FLIP_ANIMATION_MIDPOINT_RATIO = 0.5;
+const FLIP_ANIMATION_MIDPOINT_MS = FLIP_ANIMATION_DURATION_MS * FLIP_ANIMATION_MIDPOINT_RATIO;
 
-const MIN_TOTP_LENGTH = 6;
-const MAX_TOTP_LENGTH = 6;
-
-const MIN_USERNAME_LENGTH = 3;
-const MAX_USERNAME_LENGTH = 15;
-
-type FlowStep = 'INIT' | 'PWD_DISPLAY' | 'MFA_DISPLAY';
+const NEXT_TICK_MS = 0;
 
 @Component({
   selector: 'login-view',
   imports: [
-    BackgroundComponent,
     CloseButtonComponent,
     DynamicFormComponent,
-    MainButtonComponent,
-    TranslateModule,
-    QrCodeCardComponent
+    TranslateModule
   ],
   templateUrl: './login-view.component.html',
   styleUrl: './login-view.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class LoginViewComponent {
+export class LoginViewComponent implements OnInit {
+
+  private readonly authService = inject(AuthService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly snackbarService = inject(SnackbarService);
 
   private readonly dynamicForm = viewChild(DynamicFormComponent);
-  private readonly router = inject(Router);
-  private readonly snackbar = inject(SnackbarService);
 
-  public readonly authService = inject(AuthService);
-
-  readonly currentUsername = signal<string>('');
-  readonly flowStep = signal<FlowStep>('INIT');
+  readonly isRegisterMode = signal(false);
   readonly isLoading = signal(false);
-  readonly isPasswordConfirmed = signal(false);
+  readonly isFlipping = signal(false);
 
-  readonly usernameField: FormFieldConfig[] = [
+  readonly loginFields: FormFieldConfig[] = [
+    {
+      name: 'email',
+      label: 'UI.FORMS.LABELS.EMAIL',
+      type: 'email',
+      placeholder: 'UI.FORMS.PLACEHOLDERS.EMAIL',
+      initialValue: ''
+    },
     {
       name: 'username',
       label: 'UI.FORMS.LABELS.USERNAME',
       type: 'text',
-      placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME',
-      initialValue: '',
-      customErrorKey: 'UI.FORMS.ERRORS.USERNAME_INVALID',
-      validators: [
-        Validators.required,
-        Validators.minLength(MIN_USERNAME_LENGTH),
-        Validators.maxLength(MAX_USERNAME_LENGTH)
-      ],
-      behaviors: {
-        titleCase: true,
-        autofocus: true
-      }
-    }
-  ];
-
-  readonly totpField: FormFieldConfig[] = [
+      placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME'
+    },
     {
-      name: 'totpCode',
-      label: 'UI.FORMS.LABELS.TOTP_CODE',
-      type: 'text',
-      placeholder: 'UI.FORMS.PLACEHOLDERS.TOTP_CODE',
-      initialValue: '',
-      customErrorKey: 'UI.FORMS.ERRORS.TOTP_INVALID',
-      validators: [
-        Validators.required,
-        Validators.minLength(MIN_TOTP_LENGTH),
-        Validators.maxLength(MAX_TOTP_LENGTH)
-      ],
-      behaviors: {
-        autofocus: true
-      }
+      name: 'password',
+      label: 'UI.FORMS.LABELS.PASSWORD',
+      type: 'password',
+      placeholder: 'UI.FORMS.PLACEHOLDERS.PASSWORD',
+      behaviors: { hasPasswordToggle: true }
+    },
+    {
+      name: 'confirmPassword',
+      label: 'UI.FORMS.LABELS.CONFIRM_PASSWORD',
+      type: 'password',
+      placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
+      behaviors: { hasPasswordToggle: true }
     }
   ];
 
-  onUsernameSubmit(data: DynamicFormRawValue): void {
-    this.isLoading.set(true);
-    const username = data['username'] as string;
-    this.currentUsername.set(username);
+  ngOnInit(): void {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      const EMAIL_PARAM = params['email'];
 
-    this.authService.generateAccount(username).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.flowStep.set('PWD_DISPLAY');
-      },
-      error: (err: HttpErrorResponse) => {
-        this.isLoading.set(false);
-        this.snackbar.showNotification(
-          err.status === HTTP_STATUS_CONFLICT ? 'UI.SNACKBAR.AUTH.ACCOUNT_EXISTS' : 'ERROR',
-          'red-alert'
-        );
+      if (EMAIL_PARAM) {
+        setTimeout(() => {
+          if (this.isRegisterMode()) {
+            this.toggleMode(EMAIL_PARAM);
+          }
+          else {
+            // this.dynamicForm()?.patchEmail(EMAIL_PARAM);
+          }
+        }, NEXT_TICK_MS);
       }
     });
   }
 
-  confirmPasswordNoted(): void {
-    const username = this.currentUsername();
-    this.isLoading.set(true);
+  toggleMode(emailToPatch?: string): void {
+    if (this.isFlipping()) return;
 
-    this.authService.generateMfa(username).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.flowStep.set('MFA_DISPLAY');
+    this.isFlipping.set(true);
+
+    setTimeout(() => {
+      this.isRegisterMode.update(v => !v);
+
+      this.dynamicForm()?.resetForm();
+
+      if (emailToPatch) {
+        // this.dynamicForm()?.patchEmail(emailToPatch);
       }
-    });
+    }, FLIP_ANIMATION_MIDPOINT_MS);
+
+    setTimeout(() => {
+      this.isFlipping.set(false);
+    }, FLIP_ANIMATION_DURATION_MS);
   }
 
-  onTotpSubmit(data: DynamicFormRawValue): void {
-    this.isLoading.set(true);
-    const username = this.currentUsername();
-    const totpCode = data['totpCode'] as string;
+  onFormSubmit(data: DynamicFormRawValue): void {
+    // this.isLoading.set(true);
 
-    this.authService.verifyMfa(username, totpCode).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.snackbar.showNotification('UI.SNACKBAR.AUTH.MFA_VERIFY_SUCCESS', 'created');
-        this.router.navigate(['/account']);
-      },
-      error: (err: HttpErrorResponse) => {
-        this.isLoading.set(false);
-        if (err.status === HTTP_STATUS_UNAUTHORIZED) {
-          this.snackbar.showNotification('UI.SNACKBAR.AUTH.OTP_INVALID', 'red-alert');
-        }
-        else {
-          this.snackbar.showNotification('ERROR', 'red-alert');
-        }
-      }
-    });
+    // const {
+    //   email: EMAIL,
+    //   password: PASSWORD,
+    //   username: USERNAME
+    // } = data;
+
+    // if (typeof EMAIL !== 'string' || typeof PASSWORD !== 'string') {
+    //   this.isLoading.set(false);
+    //   return;
+    // }
+
+    if (this.isRegisterMode()) {
+      // --- REGISTER ---
+      // const REGISTER_DATA: RegisterCredentials = {
+      //   email: EMAIL,
+      //   password: PASSWORD,
+      //   username: (USERNAME as string) || ''
+      // };
+
+      // this.authService.register(REGISTER_DATA).subscribe({
+      //   next: () => {
+      //     this.isLoading.set(false);
+      //     this.router.navigate(['/login'], { queryParams: { email: EMAIL } });
+
+      //     this.snackbarService.showNotification('UI.SNACKBAR.AUTH.REGISTER.SUCCESS', 'register');
+      //   },
+      //   error: () => {
+      //     this.isLoading.set(false);
+
+      //     this.snackbarService.showNotification('UI.SNACKBAR.AUTH.REGISTER.ERROR', 'red-alert');
+      //   }
+      // });
+
+    }
+    else {
+      // --- LOGIN ---
+      // const LOGIN_DATA: LoginCredentials = {
+      //   email: EMAIL,
+      //   password: PASSWORD
+      // };
+
+      // this.authService.login(LOGIN_DATA).subscribe({
+      //   next: (user: AppUser) => {
+      //     this.isLoading.set(false);
+      //     this.router.navigate(['/private']);
+
+      //     this.snackbarService.showNotification(
+      //       'UI.SNACKBAR.AUTH.LOGIN.SUCCESS',
+      //       'logIn-logOut',
+      //       { username: user.username }
+      //     );
+      //   },
+      //   error: (err) => {
+      //     this.isLoading.set(false);
+
+      //     const MSG = err.message?.toLowerCase().includes('confirm')
+      //       ? 'UI.SNACKBAR.AUTH.LOGIN.CONFIRM_EMAIL_NEEDED'
+      //       : 'UI.SNACKBAR.AUTH.LOGIN.ERROR';
+      //     this.snackbarService.showNotification(MSG, 'red-alert');
+      //   }
+      // });
+    }
   }
 
   onCancel(): void {
-    this.authService.currentPasswordQrCode.set(null);
-    this.authService.currentRawPassword.set(null);
-    this.authService.currentMfaQrCode.set(null);
-    this.isPasswordConfirmed.set(false);
     this.dynamicForm()?.resetForm();
-    this.flowStep.set('INIT');
-  }
-
-  resetView(): void {
-    this.authService.currentPasswordQrCode.set(null);
-    this.dynamicForm()?.resetForm();
-  }
-
-  finalize(): void {
-    this.router.navigate(['/account']);
   }
 }

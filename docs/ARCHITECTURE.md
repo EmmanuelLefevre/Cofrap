@@ -60,7 +60,7 @@
  ┃ ┃ ┃ ┣ 🧱_models
  ┃ ┃ ┃ ┣ 💉_services
  ┃ ┃ ┃ ┣ 👁️private-views
- ┃ ┃ ┃ ┃ ┗ ⚙️account
+ ┃ ┃ ┃ ┃ ┗ ⚙️personal-space
  ┃ ┃ ┃ ┣ 📄private.component.html
  ┃ ┃ ┃ ┣ 📄private.component.ts
  ┃ ┃ ┃ ┣ 📄private.config.ts
@@ -71,6 +71,7 @@
  ┃ ┃   ┣ 💉_services
  ┃ ┃   ┣ 👁️public-views
  ┃ ┃   ┃ ┣ ✉️contact
+ ┃ ┃   ┃ ┣ 🔑create-account
  ┃ ┃   ┃ ┣ 🏠home
  ┃ ┃   ┃ ┗ 🔑login
  ┃ ┃   ┣ 📄public.component.html

@@ -55,7 +55,7 @@ export class HeaderNavComponent {
       this.authService.logout();
     }
     else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/create-account']);
     }
   }
 

@@ -1,70 +1,21 @@
-<background>
-  <section class="login">
-    <div class="login__wrapper">
-      <div class="login__container">
-        <close-button />
+<section class="login">
+  <div class="login__wrapper">
+    <div class="login__container">
+      <close-button />
 
-        <div class="login__header">
-          @switch (flowStep()) {
-            @case ('INIT') {
-              <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.STEP1' | translate }}</h1>
-            }
-            @case ('PWD_DISPLAY') {
-              <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.STEP2' | translate }}</h1>
-            }
-            @case ('MFA_DISPLAY') {
-              <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.STEP3' | translate }}</h1>
-            }
-          }
-        </div>
+      <div class="login__header">
+        <h1 class="create-account__title">{{ 'PAGES.AUTH.LOGIN' | translate }}</h1>
 
-        @switch (flowStep()) {
-          @case ('INIT') {
-            <dynamic-form
-              [fields]="usernameField"
-              [isLoading]="isLoading()"
-              (submitted)="onUsernameSubmit($event)"
-              (cancelled)="onCancel()" />
-          }
-          @case ('PWD_DISPLAY') {
-            <qr-code-card
-              [qrCode]="authService.currentPasswordQrCode()!"
-              [rawValue]="authService.currentRawPassword()!"
-              [showCheckbox]="true"
-              (confirmToggled)="isPasswordConfirmed.set($event)" />
-
-            <div class="login__actions">
-              <main-button
-                variant="ghost"
-                label="UI.BUTTONS.CANCEL.LABEL"
-                (clicked)="onCancel()" />
-
-              <main-button
-                label="UI.ACTIONS.CONFIRM_NOTED"
-                [isDisabled]="!isPasswordConfirmed()"
-                (clicked)="confirmPasswordNoted()" />
-            </div>
-          }
-          @case ('MFA_DISPLAY') {
-            <qr-code-card
-              [qrCode]="authService.currentMfaQrCode()!"
-              [rawValue]="'MFA_SECRET_HIDDEN'"
-              (copied)="finalize()"
-              [showRawValue]="false"
-              [showCopyButton]="false" />
-
-            <div class="login__instruction login__instruction--centered">
-              {{ 'PAGES.AUTH.LOGIN.STEP3_INSTRUCTION' | translate }}
-            </div>
-
-            <dynamic-form
-              [fields]="totpField"
-              [isLoading]="isLoading()"
-              (submitted)="onTotpSubmit($event)"
-              (cancelled)="onCancel()" />
-          }
-        }
+        <p class="login__subtitle">
+          {{ ('PAGES.AUTH.LOGIN.SUBTITLE') | translate }}
+        </p>
       </div>
+
+      <dynamic-form
+        [fields]="loginFields"
+        [isLoading]="isLoading()"
+        (submitted)="onFormSubmit($event)"
+        (cancelled)="onCancel()" />
     </div>
-  </section>
-</background>
+  </div>
+</section>
