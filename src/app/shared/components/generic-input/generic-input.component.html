@@ -29,7 +29,7 @@
         [attr.aria-label]="
           (showPassword() ? 'UI.FORMS.ACTIONS.HIDE_PASSWORD' : 'UI.FORMS.ACTIONS.SHOW_PASSWORD') | translate
         ">
-        <i [class]="showPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+        <fa-icon [icon]="showPassword() ? faEyeSlash : faEye" />
       </button>
     }
   </div>
@@ -37,7 +37,7 @@
   <div class="c-field__error">
       @if (hasError()) {
       <span>
-        <i class="fa-solid fa-circle-exclamation"></i> {{ errorKey() | translate }}
+        <fa-icon [icon]="faCircleExclamation" /> {{ errorKey() | translate }}
       </span>
     }
     </div>

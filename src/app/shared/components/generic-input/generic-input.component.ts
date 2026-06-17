@@ -9,12 +9,16 @@ import { FormFieldConfig } from '@core/_models/forms/form.model';
 import { InputFocusDirective } from '@shared/_directives/input-focus/input-focus.directive';
 import { InputTitleCaseDirective } from '@shared/_directives/input-title-case/input-title-case.directive';
 
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faEye, faEyeSlash, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'generic-input',
   imports: [
-    ReactiveFormsModule,
+    FaIconComponent,
     InputFocusDirective,
     InputTitleCaseDirective,
+    ReactiveFormsModule,
     TranslateModule
   ],
   templateUrl: './generic-input.component.html',
@@ -23,6 +27,10 @@ import { InputTitleCaseDirective } from '@shared/_directives/input-title-case/in
 })
 
 export class GenericInputComponent {
+
+  protected readonly faEye = faEye;
+  protected readonly faEyeSlash = faEyeSlash;
+  protected readonly faCircleExclamation = faCircleExclamation;
 
   protected readonly showPassword = signal(false);
   protected readonly isFocused = signal(false);

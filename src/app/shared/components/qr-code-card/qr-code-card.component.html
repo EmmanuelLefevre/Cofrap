@@ -21,12 +21,17 @@
 
   @if (showCheckbox()) {
     <div class="qr-card__confirm">
-      <label>
+      <label
+        (mouseenter)="isHovered.set(true)"
+        (mouseleave)="isHovered.set(false)"
+        [class.is-revert-mode]="isChecked() && isHovered()">
+
         <input
           type="checkbox"
           [checked]="isChecked()"
           (change)="onCheckboxChange($event)" />
-        <span>{{ 'UI.QR_CARD.CONFIRM_COPY' | translate }}</span>
+
+        <span>{{ labelKey() | translate }}</span>
       </label>
     </div>
   }

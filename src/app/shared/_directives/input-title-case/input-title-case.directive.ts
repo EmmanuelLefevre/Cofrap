@@ -22,21 +22,24 @@ export class InputTitleCaseDirective {
       return;
     }
 
-    const VALUE = this.control.value;
+    const rawValue = this.el.nativeElement.value;
 
-    if (VALUE) {
+    if (rawValue) {
       const start = this.el.nativeElement.selectionStart;
       const end = this.el.nativeElement.selectionEnd;
 
-      const TRANSFORMED_TEXT = this.transformTitleCase(VALUE);
+      const transformedText = this.transformTitleCase(rawValue);
 
-      if (VALUE !== TRANSFORMED_TEXT) {
+      if (rawValue !== transformedText) {
         // Vue update (DOM)
-        this.el.nativeElement.value = TRANSFORMED_TEXT;
+        this.el.nativeElement.value = transformedText;
 
         // Model update (Angular Forms)
-        this.ngModelChange.emit(TRANSFORMED_TEXT);
-        this.control.control?.setValue(TRANSFORMED_TEXT, { emitEvent: false });
+        this.control.control?.setValue(transformedText, {
+          emitEvent: false,
+          emitModelToViewChange: true,
+          emitViewToModelChange: true
+        });
 
         this.el.nativeElement.setSelectionRange(start, end);
       }

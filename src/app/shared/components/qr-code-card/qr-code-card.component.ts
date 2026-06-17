@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -23,6 +23,7 @@ export class QrCodeCardComponent {
   private readonly snackbar = inject(SnackbarService);
 
   protected readonly isChecked = signal(false);
+  protected readonly isHovered = signal(false);
 
   public readonly confirmToggled = output<boolean>();
   public readonly copied = output<string>();
@@ -47,7 +48,7 @@ export class QrCodeCardComponent {
   async onCopy(): Promise<void> {
     try {
       await navigator.clipboard.writeText(this.rawValue());
-      this.snackbar.showNotification('UI.QR_CARD.COPY.SUCCESS', 'created');
+      this.snackbar.showNotification('UI.QR_CARD.BACKUP.SUCCESS', 'created');
 
       this.copied.emit(this.rawValue());
 
@@ -57,7 +58,7 @@ export class QrCodeCardComponent {
       }
     }
     catch {
-      this.snackbar.showNotification('UI.QR_CARD.COPY.ERROR', 'red-alert');
+      this.snackbar.showNotification('UI.QR_CARD.BACKUP.ERROR', 'red-alert');
     }
   }
 
@@ -66,4 +67,12 @@ export class QrCodeCardComponent {
     this.isChecked.set(isChecked);
     this.confirmToggled.emit(isChecked);
   }
+
+  protected readonly labelKey = computed(() => {
+    if (this.isChecked() && this.isHovered()) {
+      return 'UI.QR_CARD.UNCONFIRM_BACKUP';
+    }
+
+    return 'UI.QR_CARD.CONFIRM_BACKUP';
+  });
 }

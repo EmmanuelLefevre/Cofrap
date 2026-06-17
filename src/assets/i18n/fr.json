@@ -196,8 +196,9 @@
   "UI": {
     "QR_CARD": {
       "ALT_TEXT": "QR Code généré",
-      "CONFIRM_COPY": "Confirmer la copie",
-      "COPY": {
+      "CONFIRM_BACKUP": "Confirmer la sauvegarde",
+      "UNCONFIRM_BACKUP": "Ne plus confirmer la sauvegarde",
+      "BACKUP": {
         "SUCCESS": "Le mot de passe a été copié dans le presse-papier.",
         "ERROR": "Le mot de passe n'a pas pu être copié dans le presse-papier. Veuillez réessayer."
       }

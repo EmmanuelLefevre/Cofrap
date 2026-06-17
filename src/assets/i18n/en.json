@@ -196,8 +196,9 @@
   "UI": {
     "QR_CARD": {
       "ALT_TEXT": "QR Code generated",
-      "CONFIRM_COPY": "Confirm copy",
-      "COPY": {
+      "CONFIRM_BACKUP": "Confirm backup",
+      "UNCONFIRM_BACKUP": "Do not confirm backup",
+      "BACKUP": {
         "SUCCESS": "The password has been copied to the clipboard.",
         "ERROR": "The password could not be copied to the clipboard. Please try again."
       }
