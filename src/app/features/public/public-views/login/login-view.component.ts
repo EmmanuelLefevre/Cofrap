@@ -14,12 +14,10 @@ import { SnackbarService } from '@core/_services/snackbar/snackbar.service';
 
 import { CloseButtonComponent } from '@shared/components/close-button/close-button.component';
 import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
+import { Validators } from '@angular/forms';
 
-const FLIP_ANIMATION_DURATION_MS = 800;
-const FLIP_ANIMATION_MIDPOINT_RATIO = 0.5;
-const FLIP_ANIMATION_MIDPOINT_MS = FLIP_ANIMATION_DURATION_MS * FLIP_ANIMATION_MIDPOINT_RATIO;
-
-const NEXT_TICK_MS = 0;
+const MIN_USERNAME_LENGTH = 3;
+const MAX_USERNAME_LENGTH = 15;
 
 @Component({
   selector: 'login-view',
@@ -83,6 +81,12 @@ export class LoginViewComponent implements OnInit {
           type: 'text',
           placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME',
           initialValue: usernameParam,
+          customErrorKey: 'UI.FORMS.ERRORS.USERNAME_INVALID',
+          validators: [
+            Validators.required,
+            Validators.minLength(MIN_USERNAME_LENGTH),
+            Validators.maxLength(MAX_USERNAME_LENGTH)
+          ],
           behaviors: { titleCase: true, autofocus: true }
         },
         {

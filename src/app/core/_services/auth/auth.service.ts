@@ -10,10 +10,9 @@ import { ENVIRONMENT } from '@env/environment';
 
 import { User } from '@core/_models/user/user.model';
 
-import { LoginCredentials, AccountCreationResponse, MfaCreationResponse } from '@core/_models/auth/auth.model';
+import { AccountCreationResponse, LoginCredentials, MfaCreationResponse } from '@core/_models/auth/auth.model';
 
-
-// Mocking imports
+// --- MOCK imports (supprimer une fois l'API en service) ---
 import { of, delay } from 'rxjs';
 import { MOCK_ACCOUNT_RESPONSE, MOCK_MFA_RESPONSE } from '@app/core/_mocks/auth.mock';
 
@@ -63,7 +62,7 @@ export class AuthService {
 
   // --- Real Method (décommenter une fois l'API en service) ---
   // generateMfa(username: string): Observable<MfaCreationResponse> {
-  //   return this.http.post<MfaCreationResponse>(`${this.apiGatewayUrl}/generate-2fa`, { username })
+  //   return this.http.post<MfaCreationResponse>(`${this.apiGatewayUrl}/generate-mfa`, { username })
   //     .pipe(
   //       tap((res) => this.currentMfaQrCode.set(res.mfaQrCode))
   //     );
@@ -80,7 +79,7 @@ export class AuthService {
 
   // --- Real Method (décommenter une fois l'API en service) ---
   // verifyMfa(username: string, totpCode: string): Observable<boolean> {
-  //   return this.http.post<boolean>(`${this.apiGatewayUrl}/verify-2fa`, { username, totpCode })
+  //   return this.http.post<boolean>(`${this.apiGatewayUrl}/verify-mfa`, { username, totpCode })
   //     .pipe(
   //       tap(() => {
   //         if (typeof localStorage !== 'undefined') {
