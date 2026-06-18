@@ -141,8 +141,10 @@ export class CreateAccountViewComponent {
     this.authService.verifyMfa(username, totpCode).subscribe({
       next: () => {
         this.isLoading.set(false);
-        this.snackbar.showNotification('UI.SNACKBAR.AUTH.ACCOUNT_CREATED', 'created');
-        this.router.navigate(['/login']);
+        this.snackbar.showNotification(
+          'UI.SNACKBAR.AUTH.ACCOUNT_CREATED', 'created', { username }
+        );
+        this.router.navigate(['/login'], { queryParams: { username: username } });
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading.set(false);

@@ -47,71 +47,65 @@ export class LoginViewComponent implements OnInit {
   readonly isLoading = signal(false);
   readonly isFlipping = signal(false);
 
-  readonly loginFields: FormFieldConfig[] = [
-    {
-      name: 'email',
-      label: 'UI.FORMS.LABELS.EMAIL',
-      type: 'email',
-      placeholder: 'UI.FORMS.PLACEHOLDERS.EMAIL',
-      initialValue: ''
-    },
-    {
-      name: 'username',
-      label: 'UI.FORMS.LABELS.USERNAME',
-      type: 'text',
-      placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME'
-    },
-    {
-      name: 'password',
-      label: 'UI.FORMS.LABELS.PASSWORD',
-      type: 'password',
-      placeholder: 'UI.FORMS.PLACEHOLDERS.PASSWORD',
-      behaviors: { hasPasswordToggle: true }
-    },
-    {
-      name: 'confirmPassword',
-      label: 'UI.FORMS.LABELS.CONFIRM_PASSWORD',
-      type: 'password',
-      placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
-      behaviors: { hasPasswordToggle: true }
-    }
-  ];
+  readonly loginFields = signal<FormFieldConfig[]>([]);
+
+  // readonly loginFields: FormFieldConfig[] = [
+  //   {
+  //     name: 'username',
+  //     label: 'UI.FORMS.LABELS.USERNAME',
+  //     type: 'text',
+  //     placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME'
+  //   },
+  //   {
+  //     name: 'password',
+  //     label: 'UI.FORMS.LABELS.PASSWORD',
+  //     type: 'password',
+  //     placeholder: 'UI.FORMS.PLACEHOLDERS.PASSWORD',
+  //     behaviors: { hasPasswordToggle: true }
+  //   },
+  //   {
+  //     name: 'confirmPassword',
+  //     label: 'UI.FORMS.LABELS.CONFIRM_PASSWORD',
+  //     type: 'password',
+  //     placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
+  //     behaviors: { hasPasswordToggle: true }
+  //   }
+  // ];
 
   ngOnInit(): void {
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      const EMAIL_PARAM = params['email'];
+      const usernameParam = params['username'] || '';
 
-      if (EMAIL_PARAM) {
-        setTimeout(() => {
-          if (this.isRegisterMode()) {
-            this.toggleMode(EMAIL_PARAM);
+      this.loginFields.set([
+        {
+          name: 'username',
+          label: 'UI.FORMS.LABELS.USERNAME',
+          type: 'text',
+          placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME',
+          initialValue: usernameParam,
+          behaviors: { titleCase: true, autofocus: true }
+        },
+        {
+          name: 'password',
+          label: 'UI.FORMS.LABELS.PASSWORD',
+          type: 'password',
+          placeholder: 'UI.FORMS.PLACEHOLDERS.PASSWORD',
+          behaviors: {
+            hasPasswordToggle: true,
+            autofocus: true
           }
-          else {
-            // this.dynamicForm()?.patchEmail(EMAIL_PARAM);
+        },
+        {
+          name: 'confirmPassword',
+          label: 'UI.FORMS.LABELS.CONFIRM_PASSWORD',
+          type: 'password',
+          placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
+          behaviors: {
+            hasPasswordToggle: true
           }
-        }, NEXT_TICK_MS);
-      }
+        }
+      ]);
     });
-  }
-
-  toggleMode(emailToPatch?: string): void {
-    if (this.isFlipping()) return;
-
-    this.isFlipping.set(true);
-
-    setTimeout(() => {
-      this.isRegisterMode.update(v => !v);
-
-      this.dynamicForm()?.resetForm();
-
-      if (emailToPatch) {
-        // this.dynamicForm()?.patchEmail(emailToPatch);
-      }
-    }, FLIP_ANIMATION_MIDPOINT_MS);
-
-    setTimeout(() => {
-      this.isFlipping.set(false);
-    }, FLIP_ANIMATION_DURATION_MS);
   }
 
   onFormSubmit(data: DynamicFormRawValue): void {

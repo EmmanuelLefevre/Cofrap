@@ -126,6 +126,10 @@
         "STEP2": "Save your password !",
         "STEP3": "Secure your account !",
         "STEP3_INSTRUCTION": "Open your application (Google Authenticator, Microsoft...), scan the QR Code above, then enter the generated temporary code."
+      },
+      "LOGIN": {
+        "TITLE": "Great to see you again !",
+        "SUBTITLE": "Login to access your private area."
       }
     },
     "ERROR": {
@@ -213,7 +217,7 @@
           "SUCCESS": "Goodbye {{username}} !"
         },
         "TOTP_INVALID": "The security code is incorrect. Please try again.",
-        "ACCOUNT_CREATED": "Account successfully generated for {{username}}.",
+        "ACCOUNT_CREATED": "Your account has been successfully created for {{username}}.",
         "PASSWORD_GEN_SUCCESS": "Password successfully generated for {{username}}.",
         "MFA_GEN_SUCCESS": "Secret 2FA successfully generated.",
         "ACCOUNT_EXISTS": "This username is already in use.",
@@ -229,11 +233,13 @@
       "LABELS": {
         "USERNAME": "Username",
         "PASSWORD": "Password",
+        "CONFIRM_PASSWORD": "Confirm password",
         "TOTP_CODE": "Security code"
       },
       "PLACEHOLDERS": {
         "USERNAME": "Username",
         "PASSWORD": "Password",
+        "CONFIRM_PASSWORD": "Confirm password",
         "TOTP_CODE": "Ex : 123456"
       },
       "ACTIONS": {

@@ -4,18 +4,20 @@
       <close-button />
 
       <div class="login__header">
-        <h1 class="create-account__title">{{ 'PAGES.AUTH.LOGIN' | translate }}</h1>
+        <h1 class="login__title">{{ 'PAGES.AUTH.LOGIN.TITLE' | translate }}</h1>
 
         <p class="login__subtitle">
-          {{ ('PAGES.AUTH.LOGIN.SUBTITLE') | translate }}
+          {{ 'PAGES.AUTH.LOGIN.SUBTITLE' | translate }}
         </p>
       </div>
 
-      <dynamic-form
-        [fields]="loginFields"
-        [isLoading]="isLoading()"
-        (submitted)="onFormSubmit($event)"
-        (cancelled)="onCancel()" />
+      @if (loginFields().length) {
+        <dynamic-form
+          [fields]="loginFields()"
+          [isLoading]="isLoading()"
+          (submitted)="onFormSubmit($event)"
+          (cancelled)="onCancel()" />
+      }
     </div>
   </div>
 </section>

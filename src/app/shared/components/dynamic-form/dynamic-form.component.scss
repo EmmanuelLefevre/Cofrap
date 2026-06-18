@@ -14,13 +14,13 @@
   &__fields {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
   }
 
   &__actions {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    margin-top: 16px;
 
     @include respond-to('mobile') {
       flex-direction: row-reverse;
