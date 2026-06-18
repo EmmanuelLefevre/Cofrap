@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,11 @@ import { SnackbarService } from '@core/_services/snackbar/snackbar.service';
 import { CloseButtonComponent } from '@shared/components/close-button/close-button.component';
 import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
 import { Validators } from '@angular/forms';
+
+const MIN_TOTP_LENGTH = 6;
+const MAX_TOTP_LENGTH = 6;
+
+const MIN_PASSWORD_LENGTH = 24;
 
 const MIN_USERNAME_LENGTH = 3;
 const MAX_USERNAME_LENGTH = 15;
@@ -47,29 +52,6 @@ export class LoginViewComponent implements OnInit {
 
   readonly loginFields = signal<FormFieldConfig[]>([]);
 
-  // readonly loginFields: FormFieldConfig[] = [
-  //   {
-  //     name: 'username',
-  //     label: 'UI.FORMS.LABELS.USERNAME',
-  //     type: 'text',
-  //     placeholder: 'UI.FORMS.PLACEHOLDERS.USERNAME'
-  //   },
-  //   {
-  //     name: 'password',
-  //     label: 'UI.FORMS.LABELS.PASSWORD',
-  //     type: 'password',
-  //     placeholder: 'UI.FORMS.PLACEHOLDERS.PASSWORD',
-  //     behaviors: { hasPasswordToggle: true }
-  //   },
-  //   {
-  //     name: 'confirmPassword',
-  //     label: 'UI.FORMS.LABELS.CONFIRM_PASSWORD',
-  //     type: 'password',
-  //     placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
-  //     behaviors: { hasPasswordToggle: true }
-  //   }
-  // ];
-
   ngOnInit(): void {
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       const usernameParam = params['username'] || '';
@@ -94,6 +76,12 @@ export class LoginViewComponent implements OnInit {
           label: 'UI.FORMS.LABELS.PASSWORD',
           type: 'password',
           placeholder: 'UI.FORMS.PLACEHOLDERS.PASSWORD',
+          customErrorKey: 'UI.FORMS.ERRORS.PASSWORD_FORMAT',
+          validators: [
+            Validators.required,
+            Validators.minLength(MIN_PASSWORD_LENGTH),
+            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$')
+          ],
           behaviors: {
             hasPasswordToggle: true,
             autofocus: true
@@ -104,79 +92,64 @@ export class LoginViewComponent implements OnInit {
           label: 'UI.FORMS.LABELS.CONFIRM_PASSWORD',
           type: 'password',
           placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
+          customErrorKey: 'UI.FORMS.ERRORS.PASSWORD_FORMAT',
+          validators: [
+            Validators.required,
+            Validators.minLength(MIN_PASSWORD_LENGTH),
+            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$')
+          ],
           behaviors: {
             hasPasswordToggle: true
           }
+        },
+        {
+          name: 'totpCode',
+          label: 'UI.FORMS.LABELS.TOTP_CODE',
+          type: 'text',
+          placeholder: 'UI.FORMS.PLACEHOLDERS.TOTP_CODE',
+          customErrorKey: 'UI.FORMS.ERRORS.TOTP_INVALID',
+          validators: [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+            Validators.minLength(MIN_TOTP_LENGTH),
+            Validators.maxLength(MAX_TOTP_LENGTH)
+          ],
         }
       ]);
     });
   }
 
-  onFormSubmit(data: DynamicFormRawValue): void {
-    // this.isLoading.set(true);
+  onLoginSubmit(data: DynamicFormRawValue): void {
+    this.isLoading.set(true);
 
-    // const {
-    //   email: EMAIL,
-    //   password: PASSWORD,
-    //   username: USERNAME
-    // } = data;
+    const { username: USERNAME, password: PASSWORD, totpCode: TOTP_CODE } = data;
 
-    // if (typeof EMAIL !== 'string' || typeof PASSWORD !== 'string') {
-    //   this.isLoading.set(false);
-    //   return;
-    // }
-
-    if (this.isRegisterMode()) {
-      // --- REGISTER ---
-      // const REGISTER_DATA: RegisterCredentials = {
-      //   email: EMAIL,
-      //   password: PASSWORD,
-      //   username: (USERNAME as string) || ''
-      // };
-
-      // this.authService.register(REGISTER_DATA).subscribe({
-      //   next: () => {
-      //     this.isLoading.set(false);
-      //     this.router.navigate(['/login'], { queryParams: { email: EMAIL } });
-
-      //     this.snackbarService.showNotification('UI.SNACKBAR.AUTH.REGISTER.SUCCESS', 'register');
-      //   },
-      //   error: () => {
-      //     this.isLoading.set(false);
-
-      //     this.snackbarService.showNotification('UI.SNACKBAR.AUTH.REGISTER.ERROR', 'red-alert');
-      //   }
-      // });
-
+    if (typeof USERNAME !== 'string' || typeof PASSWORD !== 'string' || typeof TOTP_CODE !== 'string') {
+      this.isLoading.set(false);
+      return;
     }
-    else {
-      // --- LOGIN ---
-      // const LOGIN_DATA: LoginCredentials = {
-      //   email: EMAIL,
-      //   password: PASSWORD
-      // };
 
-      // this.authService.login(LOGIN_DATA).subscribe({
-      //   next: (user: AppUser) => {
-      //     this.isLoading.set(false);
-      //     this.router.navigate(['/private']);
+    const LOGIN_DATA: LoginCredentials = {
+      username: USERNAME,
+      password: PASSWORD,
+      totpCode: TOTP_CODE
+    };
 
-      //     this.snackbarService.showNotification(
-      //       'UI.SNACKBAR.AUTH.LOGIN.SUCCESS',
-      //       'logIn-logOut',
-      //       { username: user.username }
-      //     );
-      //   },
-      //   error: (err) => {
-      //     this.isLoading.set(false);
+    this.authService.login(LOGIN_DATA).subscribe({
+      next: (user: AppUser) => {
+        this.isLoading.set(false);
+        this.router.navigate(['/account']);
 
-      //     const MSG = err.message?.toLowerCase().includes('confirm')
-      //       ? 'UI.SNACKBAR.AUTH.LOGIN.CONFIRM_EMAIL_NEEDED'
-      //       : 'UI.SNACKBAR.AUTH.LOGIN.ERROR';
-      //     this.snackbarService.showNotification(MSG, 'red-alert');
-      //   }
-      // });
-    }
+        this.snackbarService.showNotification(
+          'UI.SNACKBAR.AUTH.LOGIN.SUCCESS',
+          'logIn-logOut',
+          { username: user.username }
+        );
+      },
+      error: () => {
+        this.isLoading.set(false);
+      }
+    });
   }
 
   onCancel(): void {

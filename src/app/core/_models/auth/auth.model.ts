@@ -1,6 +1,7 @@
 export interface LoginCredentials {
   username: string;
   password: string;
+  totpCode: string;
 }
 
 export interface AccountCreationResponse {

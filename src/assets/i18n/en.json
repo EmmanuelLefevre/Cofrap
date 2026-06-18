@@ -250,7 +250,8 @@
         "USERNAME_INVALID": "The username is invalid.",
         "PASSWORD_INVALID": "The password is invalid.",
         "TOTP_INVALID": "The code is invalid.",
-        "TEXT_INVALID": "The entry is invalid."
+        "TEXT_INVALID": "The entry is invalid.",
+        "PASSWORD_FORMAT": "Required: 24 characters min, 1 uppercase, 1 lowercase, 1 digit, 1 symbol."
       }
     },
     "BUTTONS": {

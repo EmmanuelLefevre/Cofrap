@@ -110,11 +110,35 @@ export class AuthService {
     }
   }
 
+  // --- Real Method (décommenter une fois l'API en service) ---
+  // login(credentials: LoginCredentials): Observable<User> {
+  //   return this.http.post<User>(`${this.apiGatewayUrl}/login`, credentials)
+  //     .pipe(
+  //       tap((user) => this.currentUser.set(user))
+  //     );
+  // }
+
+  // --- MOCK (supprimer une fois l'API en service) ---
   login(credentials: LoginCredentials): Observable<User> {
-    return this.http.post<User>(`${this.apiGatewayUrl}/authenticate-user`, credentials)
-      .pipe(
-        tap((user) => this.currentUser.set(user))
+    if (credentials.totpCode === '123456') {
+
+      const mockUser: User = {
+        id: 'mock-id-98765',
+        username: credentials.username
+      } as User;
+
+      return of(mockUser).pipe(
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        delay(800),
+        tap((user) => {
+          this.currentUser.set(user);
+        })
       );
+    }
+    else {
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      return throwError(() => new HttpErrorResponse({ status: 401, statusText: 'Unauthorized' })).pipe(delay(500));
+    }
   }
 
   logout(): void {
