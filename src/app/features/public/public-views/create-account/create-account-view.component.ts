@@ -141,33 +141,18 @@ export class CreateAccountViewComponent {
     this.authService.verifyMfa(username, totpCode).subscribe({
       next: () => {
         this.isLoading.set(false);
-        this.snackbar.showNotification('UI.SNACKBAR.AUTH.MFA_VERIFY_SUCCESS', 'created');
-        this.router.navigate(['/account']);
+        this.snackbar.showNotification('UI.SNACKBAR.AUTH.ACCOUNT_CREATED', 'created');
+        this.router.navigate(['/login']);
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading.set(false);
+
         if (err.status === HTTP_STATUS_UNAUTHORIZED) {
           this.snackbar.showNotification('UI.SNACKBAR.AUTH.OTP_INVALID', 'red-alert');
         }
         else {
-          this.snackbar.showNotification('ERROR', 'red-alert');
+          this.snackbar.showNotification('UI.ERROR.GENERAL_ERROR', 'red-alert');
         }
-      }
-    });
-  }
-
-  finalize(): void {
-    this.isLoading.set(true);
-
-    this.authService.finalizeAccount(this.currentUsername()).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.snackbar.showNotification('UI.SNACKBAR.AUTH.ACCOUNT_CREATED', 'created');
-        this.router.navigate(['/login']);
-      },
-      error: () => {
-        this.isLoading.set(false);
-        this.snackbar.showNotification('UI.ERROR.GENERAL_ERROR', 'red-alert');
       }
     });
   }

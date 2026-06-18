@@ -51,7 +51,6 @@
             <qr-code-card
               [qrCode]="authService.currentMfaQrCode()!"
               [rawValue]="'MFA_SECRET_HIDDEN'"
-              (copied)="finalize()"
               [showRawValue]="false"
               [showCopyButton]="false" />
 

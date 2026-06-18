@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, Renderer2, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, Renderer2, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -34,6 +34,18 @@ export class HeaderNavComponent {
 
   public isMenuOpen = signal(false);
 
+  readonly authButtonLabel = computed(() => {
+    if (this.authService.isAuthenticated()) return 'UI.BUTTONS.LOGOUT.LABEL';
+    if (this.authService.hasAccount()) return 'UI.BUTTONS.LOGIN.LABEL';
+    return 'UI.BUTTONS.CREATE_ACCOUNT.LABEL';
+  });
+
+  readonly authButtonAria = computed(() => {
+    if (this.authService.isAuthenticated()) return 'UI.BUTTONS.LOGOUT.ARIA';
+    if (this.authService.hasAccount()) return 'UI.BUTTONS.LOGIN.ARIA';
+    return 'UI.BUTTONS.CREATE_ACCOUNT.ARIA';
+  });
+
   constructor() {
     effect(() => {
       this.updateScrollBlock();
@@ -53,6 +65,9 @@ export class HeaderNavComponent {
 
     if (this.authService.isAuthenticated()) {
       this.authService.logout();
+    }
+    else if (this.authService.hasAccount()) {
+      this.router.navigate(['/login']);
     }
     else {
       this.router.navigate(['/create-account']);

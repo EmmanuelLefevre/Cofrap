@@ -212,7 +212,8 @@
         "LOGOUT": {
           "SUCCESS": "Goodbye {{username}} !"
         },
-        "ACCOUNT_CREATED" : "Account successfully generated for {{username}}.",
+        "TOTP_INVALID": "The security code is incorrect. Please try again.",
+        "ACCOUNT_CREATED": "Account successfully generated for {{username}}.",
         "PASSWORD_GEN_SUCCESS": "Password successfully generated for {{username}}.",
         "MFA_GEN_SUCCESS": "Secret 2FA successfully generated.",
         "ACCOUNT_EXISTS": "This username is already in use.",
@@ -266,6 +267,10 @@
         "LABEL": "Logout",
         "ARIA": "Button to logout of the application"
       },
+      "CREATE_ACCOUNT": {
+        "LABEL": "Create account",
+        "ARIA": "Button to open the account creation form"
+      },
       "CONTINUE": {
         "LABEL": "Continue",
         "ARIA": "Button to login"
@@ -299,7 +304,7 @@
       "LOADING": "Loading..."
     },
     "ERROR": {
-      "GENERAL_ERROR" : "An error has occurred. Please try again later."
+      "GENERAL_ERROR": "An error has occurred. Please try again later."
     }
   }
 }

@@ -17,6 +17,8 @@ import { LoginCredentials, AccountCreationResponse, MfaCreationResponse } from '
 import { of, delay } from 'rxjs';
 import { MOCK_ACCOUNT_RESPONSE, MOCK_MFA_RESPONSE } from '@app/core/_mocks/auth.mock';
 
+const HAS_ACCOUNT_INIT = typeof localStorage !== 'undefined' ? localStorage.getItem('hasAccount') === 'true' : false;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +30,7 @@ export class AuthService {
 
   // Signaux d'état
   public readonly currentUser = signal<User | null>(null);
+  public readonly hasAccount = signal<boolean>(HAS_ACCOUNT_INIT);
   public readonly isAuthenticated = computed(() => !!this.currentUser());
 
   // Signaux pour le workflow de création
@@ -35,6 +38,7 @@ export class AuthService {
   public readonly currentPasswordQrCode = signal<string | null>(null);
   public readonly currentMfaQrCode = signal<string | null>(null);
 
+  // --- Real Method (décommenter une fois l'API en service) ---
   // generateAccount(username: string): Observable<AccountCreationResponse> {
   //   return this.http.post<AccountCreationResponse>(`${this.apiGatewayUrl}/generate-password`, { username })
   //     .pipe(
@@ -45,6 +49,7 @@ export class AuthService {
   //     );
   // }
 
+  // --- MOCK (supprimer une fois l'API en service) ---
   generateAccount(username: string): Observable<AccountCreationResponse> {
     return of(MOCK_ACCOUNT_RESPONSE).pipe(
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -56,6 +61,7 @@ export class AuthService {
     );
   }
 
+  // --- Real Method (décommenter une fois l'API en service) ---
   // generateMfa(username: string): Observable<MfaCreationResponse> {
   //   return this.http.post<MfaCreationResponse>(`${this.apiGatewayUrl}/generate-2fa`, { username })
   //     .pipe(
@@ -63,6 +69,7 @@ export class AuthService {
   //     );
   // }
 
+  // --- MOCK (supprimer une fois l'API en service) ---
   generateMfa(username: string): Observable<MfaCreationResponse> {
     return of(MOCK_MFA_RESPONSE).pipe(
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -71,31 +78,37 @@ export class AuthService {
     );
   }
 
-  // verifyMfa(username: string, otpCode: string): Observable<boolean> {
-  //   return this.http.post<boolean>(`${this.apiGatewayUrl}/verify-2fa`, { username, otpCode });
+  // --- Real Method (décommenter une fois l'API en service) ---
+  // verifyMfa(username: string, totpCode: string): Observable<boolean> {
+  //   return this.http.post<boolean>(`${this.apiGatewayUrl}/verify-2fa`, { username, totpCode })
+  //     .pipe(
+  //       tap(() => {
+  //         if (typeof localStorage !== 'undefined') {
+  //           localStorage.setItem('hasAccount', 'true');
+  //         }
+  //         this.hasAccount.set(true);
+  //       })
+  //     );
   // }
 
-  verifyMfa(username: string, otpCode: string): Observable<boolean> {
-    if (otpCode === '123456') {
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      return of(true).pipe(delay(500));
+  // --- MOCK (supprimer une fois l'API en service) ---
+  verifyMfa(username: string, totpCode: string): Observable<boolean> {
+    if (totpCode === '123456') {
+      return of(true).pipe(
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        delay(800),
+        tap(() => {
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('hasAccount', 'true');
+          }
+          this.hasAccount.set(true);
+        })
+      );
     }
     else {
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       return throwError(() => new HttpErrorResponse({ status: 401, statusText: 'Unauthorized' })).pipe(delay(500));
     }
-  }
-
-  finalizeAccount(username: string): Observable<boolean> {
-    return of(true).pipe(
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      delay(800),
-      tap(() => {
-        // Optionnel : tu pourrais ici définir un utilisateur factice
-        // dans ton signal currentUser pour simuler la connexion
-        // this.currentUser.set({ username, id: '123' } as User);
-      })
-    );
   }
 
   login(credentials: LoginCredentials): Observable<User> {

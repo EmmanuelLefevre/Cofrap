@@ -212,7 +212,8 @@
         "LOGOUT": {
           "SUCCESS": "Au revoir {{username}} !"
         },
-        "ACCOUNT_CREATED" : "Compte crée avec succès pour {{username}}.",
+        "TOTP_INVALID": "Le code de sécurité est incorrect. Veuillez réessayer.",
+        "ACCOUNT_CREATED": "Compte crée avec succès pour {{username}}.",
         "PASSWORD_GEN_SUCCESS": "Mot de passe généré avec succès pour {{username}}.",
         "MFA_GEN_SUCCESS": "Secret 2FA généré avec succès.",
         "ACCOUNT_EXISTS": "Ce nom d'utilisateur est déjà utilisé.",
@@ -266,6 +267,10 @@
         "LABEL": "Se déconnecter",
         "ARIA": "Bouton pour se déconnecter de l'application"
       },
+      "CREATE_ACCOUNT": {
+        "LABEL": "Créer un compte",
+        "ARIA": "Bouton pour ouvrir le formulaire de création de compte"
+      },
       "CONTINUE": {
         "LABEL": "Continuer",
         "ARIA": "Bouton pour se connecter"
@@ -299,7 +304,7 @@
       "LOADING": "Chargement..."
     },
     "ERROR": {
-      "GENERAL_ERROR" : "Une erreur s'est produite. Veuillez réessayer plus tard."
+      "GENERAL_ERROR": "Une erreur s'est produite. Veuillez réessayer plus tard."
     }
   }
 }
