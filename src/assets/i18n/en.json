@@ -217,7 +217,7 @@
           "SUCCESS": "Goodbye {{username}} !"
         },
         "TOTP_INVALID": "The security code is incorrect. Please try again.",
-        "ACCOUNT_CREATED": "{{username} your account has been successfully created.",
+        "ACCOUNT_CREATED": "{{username}} your account has been successfully created.",
         "PASSWORD_GEN_SUCCESS": "{{username}}, your password has been successfully generated.",
         "MFA_GEN_SUCCESS": "Secret 2FA successfully generated.",
         "ACCOUNT_EXISTS": "This username is already in use.",
