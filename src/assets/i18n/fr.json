@@ -217,8 +217,8 @@
           "SUCCESS": "Au revoir {{username}} !"
         },
         "TOTP_INVALID": "Le code de sécurité est incorrect. Veuillez réessayer.",
-        "ACCOUNT_CREATED": "Votre compte a été créer avec succès pour {{username}}.",
-        "PASSWORD_GEN_SUCCESS": "Mot de passe généré avec succès pour {{username}}.",
+        "ACCOUNT_CREATED": "{{username}, votre compte a été créer avec succès.}.",
+        "PASSWORD_GEN_SUCCESS": "{{username}}, votre mot de passe a été généré avec succès.",
         "MFA_GEN_SUCCESS": "Secret 2FA généré avec succès.",
         "ACCOUNT_EXISTS": "Ce nom d'utilisateur est déjà utilisé.",
         "COPY_SUCCESS": "Copié dans le presse-papier !"
