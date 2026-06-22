@@ -10,6 +10,7 @@ import { LoginCredentials } from '@core/_models/auth/auth.model';
 import { User as AppUser } from '@core/_models/user/user.model';
 
 import { AuthService } from '@core/_services/auth/auth.service';
+import { FormValidationService } from '@core/_services/form/form-validation.service';
 import { SnackbarService } from '@core/_services/snackbar/snackbar.service';
 
 import { CloseButtonComponent } from '@shared/components/close-button/close-button.component';
@@ -43,6 +44,7 @@ export class LoginViewComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackbarService = inject(SnackbarService);
+  private readonly validationService = inject(FormValidationService);
 
   private readonly dynamicForm = viewChild(DynamicFormComponent);
 
@@ -92,11 +94,10 @@ export class LoginViewComponent implements OnInit {
           label: 'UI.FORMS.LABELS.CONFIRM_PASSWORD',
           type: 'password',
           placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
-          customErrorKey: 'UI.FORMS.ERRORS.PASSWORD_FORMAT',
+          customErrorKey: 'UI.FORMS.ERRORS.PASSWORD_MISMATCH',
           validators: [
-            // Validators.required,
-            Validators.minLength(MIN_PASSWORD_LENGTH),
-            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$')
+            Validators.required,
+            this.validationService.passwordMatch('password')
           ],
           behaviors: {
             hasPasswordToggle: true

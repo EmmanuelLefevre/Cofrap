@@ -257,7 +257,8 @@
         "PASSWORD_INVALID": "The password is invalid.",
         "TOTP_INVALID": "The code is invalid.",
         "TEXT_INVALID": "The entry is invalid.",
-        "PASSWORD_FORMAT": "Required: 24 characters min, 1 uppercase, 1 lowercase, 1 digit, 1 symbol."
+        "PASSWORD_FORMAT": "24 characters min, 1 up, 1 low, 1 digit, 1 symbol.",
+        "PASSWORD_MISMATCH": "The passwords are not the same."
       }
     },
     "BUTTONS": {
