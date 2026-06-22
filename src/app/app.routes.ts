@@ -74,8 +74,8 @@ export const ROUTES: Routes = [
               .then(m => m.PersonalSpaceComponent),
             data: {
               seo: {
-                titleKey: 'META.PAGES.PERSONNAL_SPACE.TITLE',
-                descriptionKey: 'META.PAGES.PERSONNAL_SPACE.DESCRIPTION',
+                titleKey: 'META.PAGES.PRIVATE.PERSONNAL_SPACE.TITLE',
+                descriptionKey: 'META.PAGES.PRIVATE.PERSONNAL_SPACE.DESCRIPTION',
                 robots: 'noindex, nofollow'
               }
             }
