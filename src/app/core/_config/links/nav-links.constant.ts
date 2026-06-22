@@ -8,7 +8,7 @@ export const HEADER_NAV_LINKS: NavLink[] = [
   },
   // --- Privates Links ---
   {
-    path: '/private/account',
+    path: '/private/personal-space',
     labelKey: 'LAYOUT.HEADER.NAV.PRIVATE.ACCOUNT',
     requiresAuth: true
   }

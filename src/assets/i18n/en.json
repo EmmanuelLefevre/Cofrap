@@ -123,7 +123,7 @@
     "PERSONAL_SPACE": {
       "HERO": {
         "TITLE": "Welcome to your personal space !",
-        "DESCRIPTION": " You are now securely connected. Manage your profile, authentication settings, and access your resources within our protected infrastructure."
+        "DESCRIPTION": "You are now securely connected. Manage your profile, authentication settings, and access your resources within our protected infrastructure."
       }
     },
     "AUTH": {

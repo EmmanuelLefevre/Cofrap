@@ -123,7 +123,7 @@
     "PERSONAL_SPACE": {
       "HERO": {
         "TITLE": "Bienvenu dans votre espace personnel !",
-        "DESCRIPTION": " Vous êtes désormais connecté en toute sécurité. Gérez votre profil, vos paramètres d'authentification et accédez à vos ressources au sein de notre infrastructure protégée."
+        "DESCRIPTION": "Vous êtes désormais connecté en toute sécurité. Gérez votre profil, vos paramètres d'authentification et accédez à vos ressources au sein de notre infrastructure protégée."
       }
     },
     "AUTH": {

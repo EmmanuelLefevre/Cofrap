@@ -138,7 +138,7 @@ export class LoginViewComponent implements OnInit {
     this.authService.login(LOGIN_DATA).subscribe({
       next: (user: AppUser) => {
         this.isLoading.set(false);
-        this.router.navigate(['/personal-space']);
+        this.router.navigate(['/private/personal-space']);
 
         this.snackbarService.showNotification(
           'UI.SNACKBAR.AUTH.LOGIN.SUCCESS',
