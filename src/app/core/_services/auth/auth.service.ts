@@ -9,8 +9,9 @@ import { tap } from 'rxjs/operators';
 import { ENVIRONMENT } from '@env/environment';
 
 import { User } from '@core/_models/user/user.model';
-
 import { AccountCreationResponse, LoginCredentials, MfaCreationResponse } from '@core/_models/auth/auth.model';
+
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 // --- MOCK imports (supprimer une fois l'API en service) ---
 import { of, delay } from 'rxjs';
@@ -25,6 +26,8 @@ const HAS_ACCOUNT_INIT = typeof localStorage !== 'undefined' ? localStorage.getI
 export class AuthService {
   private readonly router = inject(Router);
   private readonly http = inject(HttpClient);
+  private readonly snackbarService = inject(SnackbarService);
+
   private readonly apiGatewayUrl = ENVIRONMENT.k8sUrl;
 
   // Signaux d'état
@@ -142,7 +145,17 @@ export class AuthService {
   }
 
   logout(): void {
-    this.clearSession();
+    const user = this.currentUser();
+
+    if (user) {
+      this.snackbarService.showNotification(
+        'UI.SNACKBAR.AUTH.LOGOUT.SUCCESS',
+        'logIn-logOut',
+        { username: user.username }
+      );
+
+      this.clearSession();
+    }
   }
 
   private clearSession(): void {
