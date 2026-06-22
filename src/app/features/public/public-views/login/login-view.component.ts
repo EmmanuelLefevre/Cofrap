@@ -94,7 +94,7 @@ export class LoginViewComponent implements OnInit {
           placeholder: 'UI.FORMS.PLACEHOLDERS.CONFIRM_PASSWORD',
           customErrorKey: 'UI.FORMS.ERRORS.PASSWORD_FORMAT',
           validators: [
-            Validators.required,
+            // Validators.required,
             Validators.minLength(MIN_PASSWORD_LENGTH),
             Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$')
           ],
@@ -138,7 +138,7 @@ export class LoginViewComponent implements OnInit {
     this.authService.login(LOGIN_DATA).subscribe({
       next: (user: AppUser) => {
         this.isLoading.set(false);
-        this.router.navigate(['/account']);
+        this.router.navigate(['/personal-space']);
 
         this.snackbarService.showNotification(
           'UI.SNACKBAR.AUTH.LOGIN.SUCCESS',

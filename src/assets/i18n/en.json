@@ -120,6 +120,12 @@
         "DESCRIPTION": " presents the Serverless architecture for protecting your infrastructure. Please generate your secure credentials in accordance with our requirements."
       }
     },
+    "PERSONAL_SPACE": {
+      "HERO": {
+        "TITLE": "Welcome to your personal space !",
+        "DESCRIPTION": " You are now securely connected. Manage your profile, authentication settings, and access your resources within our protected infrastructure."
+      }
+    },
     "AUTH": {
       "CREATE_ACCOUNT": {
         "STEP1": "Create your account !",

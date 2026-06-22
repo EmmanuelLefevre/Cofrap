@@ -1,3 +1,62 @@
+@use 'abstracts' as *;
+
 :host {
-  display: block;
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.personal-space {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  padding: clamp(3rem, 5vh, 10rem) clamp(1rem, 5vw, 2rem);
+  box-sizing: border-box;
+  z-index: 1;
+
+  &__hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, 3vh, 2.5rem);
+    z-index: 1;
+
+    @include respond-to('tablet') {
+      max-width: 700px;
+    }
+  }
+
+  &__welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(1rem, 2vh, 1.5rem);
+  }
+
+  &__logo {
+    max-width: clamp(200px, 35vw, 350px);
+    height: auto;
+  }
+
+  &__title {
+    max-width: clamp(280px, 70vw, 800px);
+  }
+
+  &__description {
+    font-family: var(--font-special);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-nav-color);
+    max-width: 60%;
+    line-height: 1.6;
+  }
+
+  &__accent {
+    color: var(--text-primary-color);
+    font-weight: var(--font-weight-bold);
+  }
 }

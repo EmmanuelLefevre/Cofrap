@@ -120,6 +120,12 @@
         "DESCRIPTION": " vous présente l'architecture Serverless au service de la protection de son infrastructure. Veuillez générer vos identifiants sécurisés conformes à nos exigences."
       }
     },
+    "PERSONAL_SPACE": {
+      "HERO": {
+        "TITLE": "Bienvenu dans votre espace personnel !",
+        "DESCRIPTION": " Vous êtes désormais connecté en toute sécurité. Gérez votre profil, vos paramètres d'authentification et accédez à vos ressources au sein de notre infrastructure protégée."
+      }
+    },
     "AUTH": {
       "CREATE_ACCOUNT": {
         "STEP1": "Créer votre compte !",
