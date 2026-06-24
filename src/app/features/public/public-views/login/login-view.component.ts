@@ -17,6 +17,8 @@ import { CloseButtonComponent } from '@shared/components/close-button/close-butt
 import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
 import { Validators } from '@angular/forms';
 
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+
 const MIN_TOTP_LENGTH = 6;
 const MAX_TOTP_LENGTH = 6;
 
@@ -34,6 +36,9 @@ const MAX_USERNAME_LENGTH = 15;
   ],
   templateUrl: './login-view.component.html',
   styleUrl: './login-view.component.scss',
+  providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
