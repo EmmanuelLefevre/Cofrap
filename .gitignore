@@ -62,3 +62,5 @@ Thumbs.db
 !sonar-project.properties
 !config
 !src/app/core/
+
+proxy.conf.json.dev
