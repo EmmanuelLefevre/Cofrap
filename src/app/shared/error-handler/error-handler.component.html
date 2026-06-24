@@ -17,13 +17,39 @@
   </div>
 
   <div class="error-view__actions">
-    @if (code() === '401') {
+    <!-- @if (code() === '401') {
       <main-button
         variant="primary"
         [label]="'UI.BUTTONS.LOGIN.LABEL' | translate"
         [ariaLabel]="'UI.BUTTONS.LOGIN.ARIA' | translate"
         (clicked)="navigateAction('/login')"
         class="error-view__button" />
+    } @else if (code() === '' || specificCodes.includes(code())) {
+      <main-button
+        variant="primary"
+        [label]="'UI.BUTTONS.BACKHOME.LABEL' | translate"
+        [ariaLabel]="'UI.BUTTONS.BACKHOME.ARIA' | translate"
+        (clicked)="navigateAction('/')"
+        class="error-view__button" />
+    } -->
+    @if (code() === '401') {
+
+      @if (hasAccount()) {
+        <main-button
+          variant="primary"
+          [label]="'UI.BUTTONS.LOGIN.LABEL' | translate"
+          [ariaLabel]="'UI.BUTTONS.LOGIN.ARIA' | translate"
+          (clicked)="navigateAction('/login')"
+          class="error-view__button" />
+      } @else {
+        <main-button
+          variant="primary"
+          [label]="'UI.BUTTONS.CREATE_ACCOUNT.LABEL' | translate"
+          [ariaLabel]="'UI.BUTTONS.CREATE_ACCOUNT.ARIA' | translate"
+          (clicked)="navigateAction('/create-account')"
+          class="error-view__button" />
+      }
+
     } @else if (code() === '' || specificCodes.includes(code())) {
       <main-button
         variant="primary"

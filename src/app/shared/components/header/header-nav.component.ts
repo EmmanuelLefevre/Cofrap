@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, Renderer2, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthService } from '@core/_services/auth/auth.service';
@@ -15,7 +15,7 @@ import { HEADER_NAV_LINKS } from '@core/_config/links/nav-links.constant';
   imports: [
     CommonModule,
     MainButtonComponent,
-    RouterModule,
+    RouterLink,
     TranslateModule,
     LanguageToggleComponent
   ],

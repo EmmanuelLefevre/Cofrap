@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, computed, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, computed, effect, signal } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -28,6 +28,10 @@ export class ErrorHandlerComponent {
   public readonly translate = inject(TranslateService);
 
   private readonly queryParamsSignal = toSignal(this.route.queryParams, { initialValue: {} as Params });
+
+  public readonly hasAccount = signal<boolean>(
+    typeof localStorage !== 'undefined' ? localStorage.getItem('hasAccount') === 'true' : false
+  );
 
   public readonly code = computed<string>(() => {
     const params = this.queryParamsSignal();
