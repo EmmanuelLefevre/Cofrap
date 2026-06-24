@@ -88,8 +88,7 @@ export class LoginViewComponent implements OnInit {
             Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).+$')
           ],
           behaviors: {
-            hasPasswordToggle: true,
-            autofocus: true
+            hasPasswordToggle: true
           }
         },
         {
