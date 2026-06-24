@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://<IP_DE_MA_VM_LINUX>:<PORT_INGRESS_OU_NODEPORT",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

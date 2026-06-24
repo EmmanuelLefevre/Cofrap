@@ -2,9 +2,7 @@ import { IEnvironment } from '@core/_models/environment/environment.interface';
 
 export const ENVIRONMENT: IEnvironment = {
   production: true,
-  k8sUrl: 'http://127.0.0.1:8080/function',
-  // ou
-  // k8sUrl: 'http://<IP_DE_TA_VM_LINUX>:<PORT_INGRESS_OU_NODEPORT>'
+  k8sUrl: '/api',
   logLevel: 'error',
   application: {
     name: 'Cofrap',

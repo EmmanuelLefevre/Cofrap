@@ -218,10 +218,22 @@ cd src/app/core/_services/auth/
 
 et tu regardes le fichier `auth.service.ts`
 
-3. tu décommentes les "Real Method" et commentes les "MOCK"
+3. tu décommentes les "Real Method" et commentes les "MOCK" (`CTRL + :`)
 
-4. tu vas dans les deux fichiers d'environnement pour variabiliser ta string connexion vers ton infra
+4. tu vas dans ce fichier pour variabiliser ta string connexion vers ton infra
 
 ```bash
-cd src/_environments/auth/
+cd proxy.conf.json
+```
+
+rre  
+
+```bash
+"target": "http://<IP_DE_MA_VM_LINUX>:<PORT_INGRESS_OU_NODEPORT"
+```
+
+ou  
+
+```bash
+"target": "http://127.0.0.1:8080/function"
 ```
