@@ -2,7 +2,7 @@ import { IEnvironment } from '@core/_models/environment/environment.interface';
 
 export const ENVIRONMENT: IEnvironment = {
   production: false,
-  k8sUrl: '/api',
+  k3sUrl: '/api',
   logLevel: 'debug',
   application: {
     name: 'Cofrap',

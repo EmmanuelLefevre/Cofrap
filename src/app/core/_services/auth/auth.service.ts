@@ -2,8 +2,8 @@
 
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { ENVIRONMENT } from '@env/environment';
@@ -14,8 +14,8 @@ import { AccountCreationResponse, LoginCredentials, MfaCreationResponse } from '
 import { SnackbarService } from '../snackbar/snackbar.service';
 
 // --- MOCK imports (supprimer une fois l'API en service) ---
-import { of, delay } from 'rxjs';
-import { MOCK_ACCOUNT_RESPONSE, MOCK_MFA_RESPONSE } from '@app/core/_mocks/auth.mock';
+// import { of, delay } from 'rxjs';
+// import { MOCK_ACCOUNT_RESPONSE, MOCK_MFA_RESPONSE } from '@app/core/_mocks/auth.mock';
 
 const HAS_ACCOUNT_INIT = typeof localStorage !== 'undefined' ? localStorage.getItem('hasAccount') === 'true' : false;
 
@@ -28,7 +28,7 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly snackbarService = inject(SnackbarService);
 
-  private readonly apiGatewayUrl = ENVIRONMENT.k8sUrl;
+  private readonly apiGatewayUrl = ENVIRONMENT.k3sUrl;
 
   // Signaux d'état
   public readonly currentUser = signal<User | null>(null);

@@ -1,6 +1,6 @@
 export interface IEnvironment {
   production: boolean;
-  k8sUrl: string;
+  k3sUrl: string;
   logLevel: 'debug' | 'info' | 'warn' | 'error';
   mockAdminPassword?: string;
   application: {

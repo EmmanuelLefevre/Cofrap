@@ -17,7 +17,7 @@ describe('AuthService', () => {
   let httpMock: HttpTestingController;
   let router: any;
 
-  const API_URL = ENVIRONMENT.k8sUrl;
+  const API_URL = ENVIRONMENT.k3sUrl;
   const MOCK_USER: User = { id: '123-uuid', username: 'adminCOFRAP' };
 
   beforeEach(() => {

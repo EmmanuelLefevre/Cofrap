@@ -28,7 +28,7 @@ describe('authInterceptor', () => {
 
   it('should add withCredentials: true if the request URL starts with the K8S OpenFaaS Gateway URL', () => {
     // --- ARRANGE ---
-    const API_ENDPOINT = `${ENVIRONMENT.k8sUrl}/authenticate-user`;
+    const API_ENDPOINT = `${ENVIRONMENT.k3sUrl}/authenticate-user`;
 
     // --- ACT ---
     httpClient.post(API_ENDPOINT, {}).subscribe();
