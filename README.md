@@ -194,3 +194,34 @@ pnpm add -DE <MA_LIBRAIRIE>@latest
 ```bash
 pnpm add -E <MA_LIBRAIRIE>@latest
 ```
+
+### ARTHUR
+
+1. Tu lances Agular en local, dans le dossier de l'application tu ouvres un terminal :  
+
+
+```bash
+pnpm start
+```
+
+ou  
+
+```bash
+ng serve
+```
+
+2. tu vas dans
+
+```bash
+cd src/app/core/_services/auth/
+```
+
+et tu regardes le fichier `auth.service.ts`
+
+3. tu décommentes les "Real Method" et commentes les "MOCK"
+
+4. tu vas dans les deux fichiers d'environnement pour variabiliser ta string connexion vers ton infra
+
+```bash
+cd src/_environments/auth/
+```
