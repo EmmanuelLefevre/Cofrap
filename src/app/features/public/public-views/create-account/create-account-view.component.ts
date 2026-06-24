@@ -150,7 +150,7 @@ export class CreateAccountViewComponent {
         this.isLoading.set(false);
 
         if (err.status === HTTP_STATUS_UNAUTHORIZED) {
-          this.snackbar.showNotification('UI.SNACKBAR.AUTH.OTP_INVALID', 'red-alert');
+          this.snackbar.showNotification('UI.SNACKBAR.AUTH.TOTP_INVALID', 'red-alert');
         }
         else {
           this.snackbar.showNotification('UI.ERROR.GENERAL_ERROR', 'red-alert');
