@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://127.0.0.1:5000",
+    "target": "http://<IP_DE_MA_VM_LINUX>:<PORT_INGRESS_OU_NODEPORT",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
