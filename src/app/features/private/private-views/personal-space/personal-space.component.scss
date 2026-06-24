@@ -38,11 +38,6 @@
     gap: clamp(1rem, 2vh, 1.5rem);
   }
 
-  &__logo {
-    max-width: clamp(200px, 35vw, 350px);
-    height: auto;
-  }
-
   &__title {
     max-width: clamp(280px, 70vw, 800px);
   }
