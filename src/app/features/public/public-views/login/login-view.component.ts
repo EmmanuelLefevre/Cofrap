@@ -1,9 +1,8 @@
-
-
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 import { DynamicFormRawValue, FormFieldConfig } from '@core/_models/forms/form.model';
 import { LoginCredentials } from '@core/_models/auth/auth.model';
@@ -17,7 +16,6 @@ import { CloseButtonComponent } from '@shared/components/close-button/close-butt
 import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
 import { Validators } from '@angular/forms';
 
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 const MIN_TOTP_LENGTH = 6;
 const MAX_TOTP_LENGTH = 6;
