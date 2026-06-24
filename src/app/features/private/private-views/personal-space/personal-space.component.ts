@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -9,7 +9,6 @@ import { BackgroundComponent } from '@shared/components/background/background.co
   imports: [
     BackgroundComponent,
     CommonModule,
-    NgOptimizedImage,
     TranslateModule
   ],
   templateUrl: './personal-space.component.html',
