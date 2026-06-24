@@ -9,6 +9,9 @@ export class FormValidationService {
 
   passwordMatch(otherFieldName: string): ValidatorFn {
     return (control: AbstractControl): Record<string, boolean> | null => {
+
+      console.log(`[Validateur] Valeur tapée : "${control.value}"`);
+
       if (!control.parent) {
         return null;
       }
