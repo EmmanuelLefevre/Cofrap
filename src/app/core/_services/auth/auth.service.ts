@@ -2,7 +2,7 @@ import { inject, Injectable, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { ENVIRONMENT } from '@env/environment';
 
@@ -50,14 +50,30 @@ export class AuthService {
       );
   }
 
+  // verifyMfa(username: string, totpCode: string): Observable<boolean> {
+  //   return this.http.post<boolean>(`${this.apiGatewayUrl}/verify-mfa`, { username, totpCode })
+  //     .pipe(
+  //       tap(() => {
+  //         if (typeof localStorage !== 'undefined') {
+  //           localStorage.setItem('hasAccount', 'true');
+  //         }
+  //         this.hasAccount.set(true);
+  //       })
+  //     );
+  // }
+
   verifyMfa(username: string, totpCode: string): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiGatewayUrl}/verify-mfa`, { username, totpCode })
+    return this.http.post<{ status: string; isValid: boolean }>(
+      `${this.apiGatewayUrl}/verify-mfa`, { username, totpCode }
+    )
       .pipe(
-        tap(() => {
-          if (typeof localStorage !== 'undefined') {
+        map(response => response.isValid),
+
+        tap((isValid) => {
+          if (isValid && typeof localStorage !== 'undefined') {
             localStorage.setItem('hasAccount', 'true');
+            this.hasAccount.set(true);
           }
-          this.hasAccount.set(true);
         })
       );
   }
